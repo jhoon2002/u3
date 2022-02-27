@@ -1,0 +1,116 @@
+설치
+1. vue3 설치
+: https://vuejs.org/guide/quick-start.html#with-build-tools
+
+npm init vue@latest
+(router + eslint + prettier)
+
+==> package.json 에서 버전 up
+
+2. quasar 설치
+: https://quasar.dev/start/vite-plugin
+
+npm install quasar @quasar/extras
+npm install -D @quasar/vite-plugin sass@1.32.0
+
+2-1. main.js: https://quasar.dev/start/vite-plugin
+위 URL에서 페이지 생성기를 이용하여 코드 생성하고, router import 추가
+---------------예시------------------
+// FILE: main.js
+
+import { createApp } from 'vue'
+import router from './router'
+import { Quasar } from 'quasar'
+import quasarLang from 'quasar/lang/ko-KR'
+
+// Import icon libraries
+import '@quasar/extras/roboto-font/roboto-font.css'
+import '@quasar/extras/material-icons/material-icons.css'
+import '@quasar/extras/material-icons-outlined/material-icons-outlined.css'
+import '@quasar/extras/material-icons-round/material-icons-round.css'
+import '@quasar/extras/material-icons-sharp/material-icons-sharp.css'
+import '@quasar/extras/mdi-v6/mdi-v6.css'
+
+// Import Quasar css
+import 'quasar/src/css/index.sass'
+
+// Assumes your root component is App.vue
+// and placed in same folder as main.js
+import App from './App.vue'
+
+const myApp = createApp(App)
+
+myApp.use(router)
+
+myApp.use(Quasar, {
+    plugins: {}, // import Quasar plugins and add here
+    lang: quasarLang,
+})
+
+// Assumes you have a <div id="app"></div> in your index.html
+myApp.mount('#app')
+--------------------------------------
+
+2-2. vite.config.js: https://quasar.dev/start/vite-plugin
+위 URL에서 페이지 생성기를 이용하여 코드 생성하고, scss uri 필요시 src 에서 src/css로 변경
+-----------예시----------
+// FILE: vite.config.js
+
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import { quasar, transformAssetUrls } from '@quasar/vite-plugin'
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [
+    vue({
+      template: { transformAssetUrls }
+    }),
+
+    quasar({
+      sassVariables: 'src/css/quasar-variables.sass'
+    })
+  ]
+})
+------------------------
+
+2-3. src/css/quasar-variables.sass: https://quasar.dev/start/vite-plugin
+위 페이지 생성기 이용
+---------예시---------
+// FILE (create it): src/css/quasar-variables.sass
+
+$primary   : #1976D2
+$secondary : #26A69A
+$accent    : #9C27B0
+
+$dark      : #1D1D1D
+
+$positive  : #21BA45
+$negative  : #C10015
+$info      : #31CCEC
+$warning   : #F2C037
+--------------------
+3. eslint + prettier 설정
+
+  (.eslintrc.js 수정)
+    env: {
+        'vue/setup-compiler-macros': true,
+        browser: true,
+        amd: true,
+        node: true,
+    },
+    rules: {
+        'prettier/prettier': [
+            'error',
+            {
+                singleQuote: true,
+                semi: false,
+                useTabs: false,
+                tabWidth: 4,
+                trailingComma: 'all',
+                printWidth: 120,
+                bracketSpacing: true,
+                arrowParens: 'avoid',
+            },
+        ],
+    },
