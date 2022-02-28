@@ -38,7 +38,7 @@ const routes = [
                 component: DirBlank,
                 children: [
                     {
-                        path: '/task/task',
+                        path: '/task/basic',
                         name: '기본 정보 등록',
                         icon: 'mdi-information-outline',
                         component: Blank,
@@ -61,14 +61,14 @@ const routes = [
                 ],
             },
             {
-                path: '/task/task-list',
+                path: '/list',
                 name: '사업 목록',
                 icon: 'mdi-format-list-bulleted-square',
                 component: Blank,
                 // component: () => import('@/views/task/List.vue'),
             },
             {
-                path: '/task/dev-list',
+                path: '/dev-list',
                 name: '개발 목록',
                 icon: 'mdi-format-list-checks',
                 component: Blank,

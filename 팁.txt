@@ -1,6 +1,6 @@
 설치
-1. vue3 설치
-: https://vuejs.org/guide/quick-start.html#with-build-tools
+1. vue3 설치(by vite)
+@ https://vuejs.org/guide/quick-start.html#with-build-tools
 
 npm init vue@latest
 (router + eslint + prettier)
@@ -8,18 +8,19 @@ npm init vue@latest
 ==> package.json 에서 버전 up
 
 2. quasar 설치
-: https://quasar.dev/start/vite-plugin
+@ https://quasar.dev/start/vite-plugin
 
 npm install quasar @quasar/extras
 npm install -D @quasar/vite-plugin sass@1.32.0
 
-2-1. main.js: https://quasar.dev/start/vite-plugin
-위 URL에서 페이지 생성기를 이용하여 코드 생성하고, router import 추가
+2-1. main.js
+@ https://quasar.dev/start/vite-plugin
+위 URL에서 페이지 생성기를 이용하여 코드 생성하고, router 사용을 위해 관련 import 추가
 ---------------예시------------------
 // FILE: main.js
 
 import { createApp } from 'vue'
-import router from './router'
+import router from './router' //router 설정
 import { Quasar } from 'quasar'
 import quasarLang from 'quasar/lang/ko-KR'
 
@@ -40,7 +41,7 @@ import App from './App.vue'
 
 const myApp = createApp(App)
 
-myApp.use(router)
+myApp.use(router) //router 설정
 
 myApp.use(Quasar, {
     plugins: {}, // import Quasar plugins and add here
@@ -51,7 +52,8 @@ myApp.use(Quasar, {
 myApp.mount('#app')
 --------------------------------------
 
-2-2. vite.config.js: https://quasar.dev/start/vite-plugin
+2-2. vite.config.js
+@ https://quasar.dev/start/vite-plugin
 위 URL에서 페이지 생성기를 이용하여 코드 생성하고, scss uri 필요시 src 에서 src/css로 변경
 -----------예시----------
 // FILE: vite.config.js
@@ -68,13 +70,14 @@ export default defineConfig({
     }),
 
     quasar({
-      sassVariables: 'src/css/quasar-variables.sass'
+      sassVariables: 'src/css/quasar-variables.sass'  //필요에 따라 적절히 수정
     })
   ]
 })
 ------------------------
 
-2-3. src/css/quasar-variables.sass: https://quasar.dev/start/vite-plugin
+2-3. src/css/quasar-variables.sass
+@ https://quasar.dev/start/vite-plugin
 위 페이지 생성기 이용
 ---------예시---------
 // FILE (create it): src/css/quasar-variables.sass
@@ -90,6 +93,7 @@ $negative  : #C10015
 $info      : #31CCEC
 $warning   : #F2C037
 --------------------
+
 3. eslint + prettier 설정
 
   (.eslintrc.js 수정)
