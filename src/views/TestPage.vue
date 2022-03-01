@@ -1,28 +1,49 @@
 <script setup>
-import { ref, reactive } from 'vue'
-const count = ref({ c: 0, name: '회원 카운터' })
-const count2 = reactive({ c: 0, name: '리액티브 카운터' })
+import { ref, reactive, onMounted } from 'vue'
+import doTime from '@/components/TimeDo.vue'
+import TestSub from '@/components/TestSub.vue'
 
-const manu = num => {
-    count.value.c = num
-}
-const manu2 = num => {
-    count2.c = num
-}
+const user = reactive({
+    name: '여종훈',
+    age: 50,
+    address: {
+        dong: '제기동',
+        goo: '동대문구',
+    },
+    hobbies: ['독서', '낚시', '등산'],
+})
+
+const sub = ref(null)
+const kkk = ref(null)
+onMounted(() => {
+    // sub.value.name = 'uuu'
+    kkk.value = sub.value.name
+    // console.log(sub.value.name)
+})
+
+const refarr = ref([1, 2, 3, { a: 'aaa', b: 'bbb' }])
+const reactarr = reactive([1, 2, 3, { a: 'aaa', b: 'bbb' }])
+
+// setTimeout(() => {
+//     user.name = '홍길동'
+//     // user.address = {
+//     //     dong: '안암동',
+//     //     goo: '성북구',
+//     // }
+//     user.address.dong = '장안동'
+//     user.hobbies = user.hobbies.filter(item => item === '낚시')
+// }, 2000)
+
+doTime(user)
 </script>
-
 <template>
-    <div class="q-mb-lg">
-        <div>{{ count.name }}: {{ count.c }}</div>
-        <q-btn label="카운트 증가" @click="count.c++" />
-        <q-btn label="초기화" @click="count.c = 0" />
-        <q-btn label="조작" @click="manu(5)" />
-    </div>
-
-    <div>
-        <div>{{ count2.name }}: {{ count2.c }}</div>
-        <q-btn label="카운트 증가" @click="count2.c++" />
-        <q-btn label="초기화" @click="count2.c = 0" />
-        <q-btn label="조작" @click="manu2(5)" />
-    </div>
+    회원은? {{ user }} {{ kkk }}
+    <div>refarr: {{ refarr }}</div>
+    <div>reactarr: {{ reactarr }}</div>
+    <q-btn label="이름 변경" @click="user.name = '홍길동'" />
+    <q-btn label="ref 값 변경" @click="refarr[3].a = 'ref zzzzz'" />
+    <q-btn label="reactive 값 변경" @click="reactarr[3].a = 'reactive zzzzz'" />
+    <test-sub ref="sub" a="aaa" b="bbb">
+        <div>내용을 보냅니다.</div>
+    </test-sub>
 </template>

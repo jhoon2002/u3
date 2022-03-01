@@ -1,3 +1,11 @@
+<script setup>
+defineProps({
+    items: {
+        type: Array,
+        required: true,
+    },
+})
+</script>
 <template>
     <q-list>
         <template v-for="item in items">
@@ -18,15 +26,3 @@
         </template>
     </q-list>
 </template>
-
-<script>
-export default {
-    name: 'GlobalNav',
-    props: {
-        items: {
-            type: Array,
-            required: true,
-        },
-    },
-}
-</script>

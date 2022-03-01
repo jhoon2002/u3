@@ -1,4 +1,4 @@
-설치
+==설치==
 1. vue3 설치
 : https://vuejs.org/guide/quick-start.html#with-build-tools
 
@@ -114,3 +114,47 @@ $warning   : #F2C037
             },
         ],
     },
+
+==컴포넌트 기초가 필요하면== https://v3.ko.vuejs.org/guide/component-basics.html
+
+==VUE 기본 개념==
+속성 == 프로퍼티 == prop (속성들 = props)
+애플리이션 인스턴스 == vm ( vm = createApp({}).mount(#app) )
+컴포넌트 인스턴스: 각 컴포넌트의 인스턴스
+인스턴스 속성: 각 인스턴스가 갖는 data 값
+IN DOM 템플릿: HTML 원칙을 따라 감(ex 태그명, 속성명은 무조건 소문사 사용 => 그래서 kebab case 사용, 반면 속성 값은 대문자 가능 ex :big-num(케밥)='bigNum(카멜)' / 언제자 문자리터럴은 대소문자 구분 안함)
+모듈: import / require 에서 사용되는 분리된 파일
+자바스크립트의 객체와 배열은 참조로 전달: prop가 배열 또는 객체인 경우 하위 컴포넌트 내부의 객체 또는 배열 자체를 변경하면 상위 상태에 영향 줌
+이벤트 이름에는 속성명과 값(리터럴)에 항상 kebab-case를 사용
+$emit: 메소드의 일종 / 사용법 $emit('발생시키는 이벤트이름(kebab)', ~)
+@이벤트이름="이벤트 처리"
+ex) 부모 @enlarge-text="anyMethod"       : 이벤트이름: enlarge-text / 이벤트처리: anyMethod
+    자식 @click="$emit('enlarge-text')"  : 이벤트이름: click / 이벤트처리: $emit('발생시키는 이벤트이름')
+    여기서 'click'은 시스템 이벤트 / enlarge-text는 커스텀 이벤트
+컴포넌트 옵션: data, computed, methods, watch, setup
+VUE API: (1)Options api (2)Composition api
+Options Api: 기능 중심 배치
+Composition Api: 논리적 관심사 중심의 코드 배치 / 코드 배치 체계화
+setup 옵션: Composition API가 존재하는 위치, return 값을 rest에서 사용
+순서)
+1. props resolved >
+2. setup 실행(this가 없음/컴포넌트 생성전/props는 접근가능/컴포넌트 인스턴스 속성은 접근 불가) >
+3. 컴포넌트 인스턴스 생성
+ref: 값에 반응형 참조(변경시 화면 업데이트)를 만드는 펑션 return {value: ''} 를 반환)(.value로 접근)
+Options Api의 라이프사이클 훅(ex mounted) <> Composition Api의 라이프사이클 훅(on이 붙음 / onMounted)
+computed 펑션: 읽기 전용 반응성 참조를 리턴(.value로 접근)
+ref, computed 사용 이유: 함수에서 반환될 때나 속성으로 할당될 때 반응성을 잃어버리기 때문에 래핑하고 해당 객체를 리턴
+
+
+
+
+
+
+
+
+
+
+
+
+
+
