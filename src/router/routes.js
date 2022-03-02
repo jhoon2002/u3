@@ -41,8 +41,8 @@ const routes = [
                         path: '/task/basic',
                         name: '기본 정보 등록',
                         icon: 'mdi-information-outline',
-                        component: Blank,
-                        // component: () => import('@/views/task/TaskForm.vue'),
+                        // component: Blank,
+                        component: () => import('@/views/task/TaskBasic.vue'),
                     },
                     {
                         path: '/task/researcher',

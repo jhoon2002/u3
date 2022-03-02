@@ -9,8 +9,11 @@
   },
   "dependencies": {
     "@quasar/extras": "^1.12.5",
+    "@vee-validate/i18n": "^4.5.9",
+    "@vee-validate/rules": "^4.5.9",
     "core-js": "^3.21.1",
     "quasar": "^2.5.5",
+    "vee-validate": "^4.5.9",
     "vue": "^3.2.31",
     "vue-router": "^4.0.12"
   },
