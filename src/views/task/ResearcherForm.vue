@@ -3,11 +3,7 @@
         <div class="text-h3 mb-5">연구원 등록</div>
         <v-row>
             <v-col cols="9">
-                <v-card
-                    flat
-                    style="border-radius: 0; border-right: 1px solid #d3d3d3"
-                    class="pa-0"
-                >
+                <v-card flat style="border-radius: 0; border-right: 1px solid #d3d3d3" class="pa-0">
                     <v-card-title> 연구원 목록 </v-card-title>
                     <v-card-text>
                         <v-simple-table>
@@ -49,24 +45,16 @@
                                         </td>
                                         <td class="text-center">
                                             <v-btn icon small>
-                                                <v-icon small>
-                                                    mdi-pencil-outline
-                                                </v-icon>
+                                                <v-icon small> mdi-pencil-outline </v-icon>
                                             </v-btn>
                                             <v-btn icon small>
-                                                <v-icon small>
-                                                    mdi-arrow-up
-                                                </v-icon>
+                                                <v-icon small> mdi-arrow-up </v-icon>
                                             </v-btn>
                                             <v-btn icon small>
-                                                <v-icon small>
-                                                    mdi-arrow-down
-                                                </v-icon>
+                                                <v-icon small> mdi-arrow-down </v-icon>
                                             </v-btn>
                                             <v-btn icon small>
-                                                <v-icon small>
-                                                    mdi-trash-can-outline
-                                                </v-icon>
+                                                <v-icon small> mdi-trash-can-outline </v-icon>
                                             </v-btn>
                                         </td>
                                     </tr>
@@ -86,34 +74,18 @@
                     <div class="text-h6 mt-4">연구원 생성/수정</div>
                     <v-row>
                         <v-col>
-                            <text-input
-                                name="직책"
-                                :rules="{ required: true, min: 2, max: 100 }"
-                                v-model="name"
-                            />
+                            <text-input name="직책" :rules="{ required: true, min: 2, max: 100 }" v-model="name" />
                         </v-col>
                         <v-col>
-                            <text-input
-                                name="이름"
-                                :rules="{ required: true, min: 2, max: 100 }"
-                                v-model="name"
-                            />
+                            <text-input name="이름" :rules="{ required: true, min: 2, max: 100 }" v-model="name" />
                         </v-col>
                     </v-row>
                     <v-row>
                         <v-col>
-                            <date-input
-                                name="시작일"
-                                :rules="{ required: true, date: true }"
-                                v-model="begin"
-                            />
+                            <date-input name="시작일" :rules="{ required: true, date: true }" v-model="begin" />
                         </v-col>
                         <v-col>
-                            <date-input
-                                name="종료일"
-                                :rules="{ date: true }"
-                                v-model="end"
-                            />
+                            <date-input name="종료일" :rules="{ date: true }" v-model="end" />
                         </v-col>
                     </v-row>
                     <v-row>

@@ -17,7 +17,7 @@
 
         <q-page-container>
             <q-page class="q-pa-lg">
-                <router-view id="test" />
+                <router-view class="router-view-fade-in" />
             </q-page>
         </q-page-container>
 
@@ -50,7 +50,7 @@ export default {
 }
 </script>
 <style scoped>
-#test {
+.router-view-fade-in {
     animation: fadein 0.3s;
     -moz-animation: fadein 0.3s; /* Firefox */
     -webkit-animation: fadein 0.3s; /* Safari and Chrome */
