@@ -22,8 +22,8 @@ export default {
     setup(props) {
         const options = props.items.map(item => ({
             ...item,
-            checkedIcon: 'las la-toggle-on',
-            uncheckedIcon: 'las la-toggle-off',
+            checkedIcon: 'bi-toggle-on',
+            uncheckedIcon: 'bi-toggle-off',
             color: 'black',
         }))
 

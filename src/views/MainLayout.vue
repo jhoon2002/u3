@@ -25,7 +25,7 @@
             <span class="text-body1 q-mb-xs">한국예술종합학교 산학협력단</span>
             <span class="text-caption q-mb-xs">K-Arts Industry Academy Cooperation Foundation</span>
             <span class="text-caption">
-                <q-icon name="mdi-map-marker-outline" size="xs" />
+                <q-icon name="las la-map-marker" size="xs" />
                 서울특별시 성북구 화랑로 32길 146-37
             </span>
         </q-footer>
