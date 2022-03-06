@@ -1,12 +1,33 @@
+<script>
+import { ref } from 'vue'
+import GlobalNav from '@/components/global-nav/GlobalNav.vue'
+import { useQuasar } from 'quasar'
+export default {
+    components: { GlobalNav },
+    setup() {
+        const leftDrawerOpen = ref(false)
+        const $q = useQuasar()
+
+        return {
+            leftDrawerOpen,
+            toggleLeftDrawer() {
+                leftDrawerOpen.value = !leftDrawerOpen.value
+            },
+            $q,
+        }
+    },
+}
+</script>
 <template>
     <q-layout view="hHh LpR lff">
-        <q-header bordered style="backdrop-filter: blur(1px); background-color: #0000001a" class="text-dark">
+        <q-header bordered style="backdrop-filter: blur(1px); background-color: #0000001a">
             <q-toolbar>
                 <q-toolbar-title class="q-pt-xs">
                     <q-icon name="r_hub" class="q-mb-xs q-mr-xs" />
-                    한국예술종합학교 산학협력단
+                    <span class="text-h5">한국예술종합학교 산학협력단</span>
                     <q-avatar />
                 </q-toolbar-title>
+                <q-btn dense flat round :icon="$q.dark.mode ? 'bi-moon' : 'bi-sun'" dark @click="$q.dark.toggle()" />
                 <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" />
             </q-toolbar>
         </q-header>
@@ -31,21 +52,3 @@
         </q-footer>
     </q-layout>
 </template>
-
-<script>
-import { ref } from 'vue'
-import GlobalNav from '@/components/global-nav/GlobalNav.vue'
-export default {
-    components: { GlobalNav },
-    setup() {
-        const leftDrawerOpen = ref(false)
-
-        return {
-            leftDrawerOpen,
-            toggleLeftDrawer() {
-                leftDrawerOpen.value = !leftDrawerOpen.value
-            },
-        }
-    },
-}
-</script>
