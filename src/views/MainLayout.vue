@@ -17,7 +17,7 @@
 
         <q-page-container>
             <q-page class="q-pa-lg">
-                <router-view class="router-view-fade-in" />
+                <router-view class="j-fade-in" />
             </q-page>
         </q-page-container>
 
@@ -49,46 +49,3 @@ export default {
     },
 }
 </script>
-<style scoped>
-.router-view-fade-in {
-    animation: fadein 0.3s;
-    -moz-animation: fadein 0.3s; /* Firefox */
-    -webkit-animation: fadein 0.3s; /* Safari and Chrome */
-    -o-animation: fadein 0.3s; /* Opera */
-}
-@keyframes fadein {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-@-moz-keyframes fadein {
-    /* Firefox */
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-@-webkit-keyframes fadein {
-    /* Safari and Chrome */
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-@-o-keyframes fadein {
-    /* Opera */
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-</style>

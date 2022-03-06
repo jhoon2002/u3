@@ -1,4 +1,4 @@
-export const htmlReturn = (targetString) => {
+export const htmlReturn = targetString => {
     if (targetString) {
         return targetString.replace(/\n/g, '<br/>')
     }
@@ -8,22 +8,13 @@ export const htmlReturn = (targetString) => {
 //특정 검색 단어 마크업
 export const markWord = (target, word, className) => {
     if (target) {
-        return target.replace(
-            new RegExp(word, 'g'),
-            "<span class='" + className + "'>" + word + '</span>',
-        )
+        return target.replace(new RegExp(word, 'g'), "<span class='" + className + "'>" + word + '</span>')
     }
     return target
 }
 
 //게시판 검색시 특정 필드(targetField)만 마크업
-export const markWordInBoard = (
-    target,
-    word,
-    targetField,
-    selectedfields,
-    className = 'searchWord',
-) => {
+export const markWordInBoard = (target, word, targetField, selectedfields, className = 'searchWord') => {
     if (target && selectedfields.includes(targetField)) {
         return this.markWord(target, word, className)
     }
@@ -31,7 +22,7 @@ export const markWordInBoard = (
 }
 
 //문자열 길이 구하기
-export const getByteLength = (str) => {
+export const getByteLength = str => {
     let len = 0
     for (let i = 0; i < str.length; i++) {
         if (escape(str.charAt(i)).length === 6) {
@@ -43,7 +34,7 @@ export const getByteLength = (str) => {
 }
 
 //휴대폰 번호 '-' 표시 포함
-export const cellphonePhase = (str) => {
+export const cellphonePhase = str => {
     if (!str) return
     let l = 0
     if (str.length === 10) {
@@ -53,17 +44,11 @@ export const cellphonePhase = (str) => {
     } else {
         return
     }
-    return (
-        str.substr(0, 3) +
-        '-' +
-        str.substr(3, l) +
-        '-' +
-        str.substr(3 + l, 3 + 4 + l)
-    )
+    return str.substr(0, 3) + '-' + str.substr(3, l) + '-' + str.substr(3 + l, 3 + 4 + l)
 }
 
 //주민등록번호 검사
-export const juminValidate = (juminNo) => {
+export const juminValidate = juminNo => {
     let _ssn1 = juminNo.substr(0, 6)
     let _ssn2 = juminNo.substr(6, 12)
 
@@ -99,7 +84,7 @@ export const juminValidate = (juminNo) => {
 }
 
 //주민등록번호 표시
-export const juminToStr = (juminNo) => {
+export const juminToStr = juminNo => {
     const a = juminNo.substr(0, 6)
     const b = juminNo.substr(6, 1)
     //const c = "&lt;v-icon x-small>mdi-asterisk&lt;/v-icon>"
@@ -145,21 +130,17 @@ export const toCellphone = (num, connectString = '-') => {
     if (num.length !== 10 && num.length !== 11) return
 
     return (
-        num.substr(0, 3) +
-        connectString +
-        num.substr(3, num.length - 7) +
-        connectString +
-        num.substr(num.length - 4, 4)
+        num.substr(0, 3) + connectString + num.substr(3, num.length - 7) + connectString + num.substr(num.length - 4, 4)
     )
 }
 
 //확장자 구하기
-export const getFileExt = (filename) => {
+export const getFileExt = filename => {
     return filename.substring(filename.lastIndexOf('.') + 1, filename.length)
 }
 
 //토큰 파싱
-export const parseJwt = (token) => {
+export const parseJwt = token => {
     const base64Payload = token.split('.')[1]
     const payload = Buffer.from(base64Payload, 'base64')
     return JSON.parse(payload)
@@ -174,10 +155,7 @@ export const nextFocus = (event, shoulder, destinationId) => {
 }
 
 export const prevFocus = (event, startingId, destinationId) => {
-    if (
-        event.key === 'Backspace' &&
-        !document.getElementById(startingId).value
-    ) {
+    if (event.key === 'Backspace' && !document.getElementById(startingId).value) {
         document.getElementById(destinationId).focus()
     }
     return
@@ -207,11 +185,7 @@ export const isValidDate = (inYmd, separator) => {
 
     const d = new Date(Number(year), Number(month) - 1, Number(day))
 
-    if (
-        d.getFullYear() === Number(year) &&
-        d.getMonth() + 1 === Number(month) &&
-        d.getDate() === Number(day)
-    ) {
+    if (d.getFullYear() === Number(year) && d.getMonth() + 1 === Number(month) && d.getDate() === Number(day)) {
         return true
     }
     return false

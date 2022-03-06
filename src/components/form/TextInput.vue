@@ -1,49 +1,51 @@
-<template>
-    <div>
-        <vee-field :name="$props.name" :rules="$props.rules" v-slot="{ field, errorMessage, errors }">
-            <q-input
-                v-model="state.enteredValue"
-                v-bind="field"
-                :label="$props.name"
-                :error="errors.length > 0"
-                :error-message="errorMessage"
-                :outlined="$props.outlined"
-            >
-                <template v-slot:label> {{ name }} <required-sign v-if="rules.required" /> </template>
-            </q-input>
-        </vee-field>
-    </div>
-</template>
 <script>
 import RequiredSign from '@/components/form/RequiredSign.vue'
 import { Field as VeeField } from 'vee-validate'
-import { reactive } from 'vue'
 export default {
     name: 'TextInput',
     components: {
-        RequiredSign,
         VeeField,
+        RequiredSign,
     },
     props: {
         name: {
             type: String,
             required: true,
         },
+        outlined: {
+            type: Boolean,
+        },
+        standout: {
+            type: Boolean,
+        },
+        dense: {
+            type: Boolean,
+        },
         rules: {
             type: Object,
             required: true,
         },
-        outlined: {
-            type: Boolean,
-        },
-    },
-    setup() {
-        const state = reactive({
-            enteredValue: '',
-        })
-        return {
-            state,
-        }
     },
 }
 </script>
+<template>
+    <div style="min-height: 76px">
+        <vee-field :name="$props.name" :rules="$props.rules" v-slot="{ field, handleChange, errorMessage, errors }">
+            <q-input
+                :standout="$props.standout"
+                :outlined="$props.outlined"
+                :dense="$props.dense"
+                :label="$props.name"
+                hide-bottom-space
+                :error="errors.length > 0"
+                :error-message="errorMessage"
+                no-error-icon
+                :model-value="field.value"
+                @update:model-value="handleChange"
+            >
+                <template v-slot:label> {{ name }} <required-sign v-if="rules.required" /> </template>
+                <template v-slot:error><div>dfjlsafld</div></template>
+            </q-input>
+        </vee-field>
+    </div>
+</template>

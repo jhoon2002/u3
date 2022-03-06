@@ -1,0 +1,63 @@
+.j-fade-in {
+    animation: fadein 0.3s;
+    -moz-animation: fadein 0.3s; /* Firefox */
+    -webkit-animation: fadein 0.3s; /* Safari and Chrome */
+    -o-animation: fadein 0.3s; /* Opera */
+}
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+@-moz-keyframes fadein {
+    /* Firefox */
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+@-webkit-keyframes fadein {
+    /* Safari and Chrome */
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+@-o-keyframes fadein {
+    /* Opera */
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+@each $kind in (p: 'padding', m: 'margin') {
+    @each $pos in (a:'', t: '-top', r: '-right', b: '-bottom', l: '-left') {
+        @for $size from 0 to 16 {
+            .j-#{nth($kind, 1)}#{nth($pos, 1)}-#{$size} {
+                #{nth($kind, 2)}#{nth($pos, 2)}: ($size * 4px);
+            }
+        }
+    }
+}
+.q-field--standard .q-field__control:after {
+    height: 1px;
+}
+.q-field--outlined .q-field__control:after {
+
+}
+.q-field--outlined.q-field--highlighted .q-field__control:after {
+    border-width: 1px;
+}
+//
+//.q-field--outlined .q-field__control:after {
+//    border-width
+//}
