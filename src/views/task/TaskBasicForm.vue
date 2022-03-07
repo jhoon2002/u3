@@ -132,7 +132,10 @@ export default {
             <div class="row j-mt-8">
                 <switch-input name="기타사항" :items="[{ label: '아무개사업' }, { label: '다음사업' }]" />
             </div>
-            <pre>{{ values }}</pre>
+            <!--<pre>{{ values }}</pre>-->
+            <div>
+                <q-btn outline color="primary" label="저장" @click="handleSubmit(submit)" />
+            </div>
         </vee-form>
     </div>
 </template>

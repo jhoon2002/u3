@@ -22,13 +22,24 @@ export default {
     <q-layout view="hHh LpR lff">
         <q-header bordered style="backdrop-filter: blur(1px); background-color: #0000001a">
             <q-toolbar>
-                <q-toolbar-title class="q-pt-xs">
-                    <q-icon name="r_hub" class="q-mb-xs q-mr-xs" />
-                    <span class="text-h5">한국예술종합학교 산학협력단</span>
-                    <q-avatar />
+                <q-toolbar-title
+                    class="q-pt-xs row justify-between"
+                    :class="$q.dark.mode ? 'text-white' : 'text-black'"
+                >
+                    <div>
+                        <q-btn dense flat round icon="menu" class="j-mb-1" @click="toggleLeftDrawer" />
+                        <span class="text-h5 j-ml-5">한국예술종합학교 산학협력단</span>
+                    </div>
+                    <div>
+                        <q-btn
+                            dense
+                            flat
+                            round
+                            :icon="$q.dark.mode ? 'las la-moon' : 'las la-sun'"
+                            @click="$q.dark.toggle()"
+                        />
+                    </div>
                 </q-toolbar-title>
-                <q-btn dense flat round :icon="$q.dark.mode ? 'bi-moon' : 'bi-sun'" dark @click="$q.dark.toggle()" />
-                <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" />
             </q-toolbar>
         </q-header>
 
