@@ -1,50 +1,52 @@
-<script setup>
-// import { ref, reactive, onMounted } from 'vue'
-// import doTime from '@/components/TimeDo.vue'
-// import TestSub from '@/components/TestSub.vue'
-//
-// const user = reactive({
-//     name: '여종훈',
-//     age: 50,
-//     address: {
-//         dong: '제기동',
-//         goo: '동대문구',
-//     },
-//     hobbies: ['독서', '낚시', '등산'],
-// })
-//
-// const sub = ref(null)
-// const kkk = ref(null)
-// onMounted(() => {
-//     // sub.value.name = 'uuu'
-//     kkk.value = sub.value.name
-//     // console.log(sub.value.name)
-// })
-//
-// const refarr = ref([1, 2, 3, { a: 'aaa', b: 'bbb' }])
-// const reactarr = reactive([1, 2, 3, { a: 'aaa', b: 'bbb' }])
-//
-// // setTimeout(() => {
-// //     user.name = '홍길동'
-// //     // user.address = {
-// //     //     dong: '안암동',
-// //     //     goo: '성북구',
-// //     // }
-// //     user.address.dong = '장안동'
-// //     user.hobbies = user.hobbies.filter(item => item === '낚시')
-// // }, 2000)
-//
-// doTime(user)
-</script>
 <template>
-    <!--    회원은? {{ user }} {{ kkk }}-->
-    <!--    <div>refarr: {{ refarr }}</div>-->
-    <!--    <div>reactarr: {{ reactarr }}</div>-->
-    <!--    <q-btn label="이름 변경" @click="user.name = '홍길동'" />-->
-    <!--    <q-btn label="ref 값 변경" @click="refarr[3].a = 'ref zzzzz'" />-->
-    <!--    <q-btn label="reactive 값 변경" @click="reactarr[3].a = 'reactive zzzzz'" />-->
-    <!--    <test-sub ref="sub" a="aaa" b="bbb">-->
-    <!--        <div>내용을 보냅니다.</div>-->
-    <!--    </test-sub>-->
-    테스트 페이지
+    <div id="app">
+        <file-pond
+            name="test"
+            ref="pond"
+            label-idle="Drop files here..."
+            v-bind:allow-multiple="true"
+            accepted-file-types="image/jpeg, image/png"
+            server="/api"
+            v-bind:files="myFiles"
+            v-on:init="handleFilePondInit"
+        />
+    </div>
 </template>
+
+<script>
+// Import Vue FilePond
+import vueFilePond from 'vue-filepond'
+
+// Import FilePond styles
+import 'filepond/dist/filepond.min.css'
+
+// Import FilePond plugins
+// Please note that you need to install these plugins separately
+
+// Import image preview plugin styles
+import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css'
+
+// Import image preview and file type validation plugins
+import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type'
+import FilePondPluginImagePreview from 'filepond-plugin-image-preview'
+
+// Create component
+const FilePond = vueFilePond(FilePondPluginFileValidateType, FilePondPluginImagePreview)
+
+export default {
+    name: 'TestPage',
+    data: function () {
+        return { myFiles: [] }
+    },
+    methods: {
+        handleFilePondInit: function () {
+            console.log('FilePond has initialized')
+
+            // FilePond instance methods are available on `this.$refs.pond`
+        },
+    },
+    components: {
+        FilePond,
+    },
+}
+</script>

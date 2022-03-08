@@ -5,7 +5,7 @@
             <div class="col">
                 <div class="text-h3 q-mb-lg">Typography</div>
                 <div>
-                    <v-item v-for="[c, text] in classes" :key="c">
+                    <q-item v-for="[c, text] in classes" :key="c">
                         <div>
                             <div class="text-caption q-mb-xs">{{ c }}</div>
                             <div :class="[`text-${c}`]">{{ text }}</div>
@@ -14,7 +14,7 @@
                                 <!--                                {{ scss[`${c}-line-height`] }}-->
                             </div>
                         </div>
-                    </v-item>
+                    </q-item>
                 </div>
             </div>
             <div class="col">

@@ -1,6 +1,5 @@
 <script>
 import RequiredSign from '@/components/form/RequiredSign.vue'
-import { ref } from 'vue'
 import { Field as VeeField } from 'vee-validate'
 
 export default {
@@ -29,10 +28,7 @@ export default {
         },
     },
     setup() {
-        return {
-            // date: ref(props.modelValue),
-            aaa: ref('ㅋㅋㅋ'),
-        }
+        return {}
     },
 }
 </script>

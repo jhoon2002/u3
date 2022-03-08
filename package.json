@@ -12,10 +12,14 @@
     "@vee-validate/i18n": "^4.5.9",
     "@vee-validate/rules": "^4.5.9",
     "core-js": "^3.21.1",
+    "filepond": "^4.30.3",
+    "filepond-plugin-file-validate-type": "^1.2.6",
+    "filepond-plugin-image-preview": "^4.6.10",
     "num-to-korean": "^0.4.3",
     "quasar": "^2.5.5",
     "vee-validate": "^4.5.9",
     "vue": "^3.2.31",
+    "vue-filepond": "^7.0.2",
     "vue-router": "^4.0.12"
   },
   "devDependencies": {

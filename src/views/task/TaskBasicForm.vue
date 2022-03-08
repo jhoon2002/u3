@@ -1,10 +1,8 @@
 <script>
 import { Form as VeeForm } from 'vee-validate'
-// import { reactive } from 'vue'
 import TextInput from '@/components/form/TextInput.vue'
 import DateInput from '@/components/form/DateInput.vue'
 import RadioInput from '@/components/form/RadioInput.vue'
-import { ref } from 'vue'
 import NumberInput from '@/components/form/NumberInput.vue'
 
 export default {
@@ -24,7 +22,6 @@ export default {
         }
         return {
             submit,
-            aaa: ref(''),
         }
     },
 }
@@ -32,8 +29,7 @@ export default {
 <template>
     <div>
         <vee-form
-            ref="veeform"
-            v-slot="{ values, handleSubmit, resetForm }"
+            v-slot="{ handleSubmit, resetForm }"
             :initial-values="{
                 사업종류: '산학협력사업',
                 부가가치세: '납부',
@@ -129,9 +125,7 @@ export default {
                     />
                 </div>
             </div>
-            <div class="row j-mt-8">
-                <switch-input name="기타사항" :items="[{ label: '아무개사업' }, { label: '다음사업' }]" />
-            </div>
+            <div class="row j-mt-8"></div>
             <!--<pre>{{ values }}</pre>-->
             <div>
                 <q-btn outline color="primary" label="저장" @click="handleSubmit(submit)" />
