@@ -21,6 +21,21 @@ export default {
         dense: {
             type: Boolean,
         },
+        maxlength: {
+            type: String,
+        },
+        stackLabel: {
+            type: Boolean,
+        },
+        type: {
+            type: String,
+        },
+        inputStyle: {
+            type: String,
+        },
+        inputClass: {
+            type: String,
+        },
         rules: {
             type: Object,
             required: true,
@@ -36,11 +51,16 @@ export default {
                 :outlined="$props.outlined"
                 :dense="$props.dense"
                 :label="$props.name"
+                :stack-label="$props.stackLabel"
                 hide-bottom-space
+                :maxlength="$props.maxlength"
+                :type="$props.type"
                 :error="errors.length > 0"
                 :error-message="errorMessage"
                 no-error-icon
                 :model-value="field.value"
+                :input-style="$props.inputStyle"
+                :input-class="$props.inputClass"
                 @update:model-value="handleChange"
             >
                 <template v-slot:label> {{ name }} <required-sign v-if="rules.required" /> </template>

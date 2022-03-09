@@ -40,6 +40,26 @@ const routes = [
         ],
     },
     {
+        path: '/admin',
+        name: '코드관리',
+        icon: 'las la-code',
+        component: DirBlank,
+        children: [
+            {
+                path: '/admin/bi',
+                name: '사람 등록',
+                icon: 'las la-user',
+                component: () => import('@/views/admin/UserForm.vue'),
+            },
+            {
+                path: '/admin/sponsor',
+                name: '지원기관 등록',
+                icon: 'las la-building',
+                component: () => import('@/views/admin/SponsorCreate.vue'),
+            },
+        ],
+    },
+    {
         path: '/dev-list',
         name: '개발 목록',
         icon: 'las la-tasks',

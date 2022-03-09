@@ -5,6 +5,14 @@ import DateInput from '@/components/form/DateInput.vue'
 import RadioInput from '@/components/form/RadioInput.vue'
 import NumberInput from '@/components/form/NumberInput.vue'
 
+import vueFilePond from 'vue-filepond'
+import 'filepond/dist/filepond.min.css'
+import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css'
+import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type'
+import FilePondPluginImagePreview from 'filepond-plugin-image-preview'
+import { ref } from 'vue'
+const FilePond = vueFilePond(FilePondPluginFileValidateType, FilePondPluginImagePreview)
+
 export default {
     name: 'TaskBasicForm',
     components: {
@@ -13,6 +21,7 @@ export default {
         VeeForm,
         DateInput,
         NumberInput,
+        FilePond,
     },
     setup() {
         const submit = values => {
@@ -20,8 +29,15 @@ export default {
             //실패 시는 <vee-form @invalid-submit="" 사용
             return console.log(values)
         }
+        const handleFilePondInit = function () {
+            console.log('FilePond has initialized')
+
+            // FilePond instance methods are available on `this.$refs.pond`
+        }
         return {
             submit,
+            myFiles: ref([]),
+            handleFilePondInit,
         }
     },
 }
@@ -57,8 +73,8 @@ export default {
             <div class="row q-gutter-md">
                 <text-input name="사업명(사용)" outlined :rules="{ required: true, min: 4, max: 100 }" class="col" />
                 <text-input name="사업명(공식)" outlined :rules="{ required: true, min: 4, max: 100 }" class="col" />
-                <div class="col" />
-                <div class="col" />
+                <text-input name="연구책임자" outlined :rules="{ required: true, min: 4, max: 100 }" class="col" />
+                <text-input name="지원기관" outlined :rules="{ required: true, min: 4, max: 100 }" class="col" />
             </div>
             <div class="row q-gutter-md j-mt-0">
                 <date-input name="계약한날" outlined :rules="{ required: true, date: true }" class="col" />
@@ -125,9 +141,121 @@ export default {
                     />
                 </div>
             </div>
-            <div class="row j-mt-8"></div>
             <!--<pre>{{ values }}</pre>-->
-            <div>
+            <div class="row q-gutter-md j-mt-8">
+                <div class="col">
+                    <div class="text-body1 j-mb-2">
+                        사업공고
+                        <q-icon name="las la-question-circle" class="cursor-pointer j-mb-1">
+                            <q-tooltip
+                                anchor="top middle"
+                                self="bottom start"
+                                :offset="[0, 0]"
+                                transition-show="fade"
+                                transition-hide="scale"
+                            >
+                                사업공고, 제안요청서 등
+                            </q-tooltip>
+                        </q-icon>
+                    </div>
+                    <file-pond
+                        name="test"
+                        ref="pond"
+                        label-idle="파일 올려놓기..."
+                        v-bind:allow-multiple="true"
+                        accepted-file-types="image/jpeg, image/png"
+                        server="/api"
+                        v-bind:files="myFiles"
+                        v-on:init="handleFilePondInit"
+                    >
+                    </file-pond>
+                </div>
+                <div class="col">
+                    <div class="text-body1 j-mb-2">
+                        계약서
+                        <q-icon name="las la-question-circle" class="cursor-pointer j-mb-1">
+                            <q-tooltip
+                                anchor="top middle"
+                                self="bottom start"
+                                :offset="[0, 0]"
+                                transition-show="fade"
+                                transition-hide="scale"
+                            >
+                                산학연협력계약서, 협정서, 협약서,<br />
+                                제안요청서, 사업공고,<br />
+                                근로계약서, 연구원계약서, 용역계약서 등 <br />
+                                각종 계약서 일체
+                            </q-tooltip>
+                        </q-icon>
+                    </div>
+                    <file-pond
+                        name="test"
+                        ref="pond"
+                        label-idle="파일 올려놓기..."
+                        v-bind:allow-multiple="true"
+                        accepted-file-types="image/jpeg, image/png"
+                        server="/api"
+                        v-bind:files="myFiles"
+                        v-on:init="handleFilePondInit"
+                    >
+                    </file-pond>
+                </div>
+                <div class="col">
+                    <div class="text-body1 j-mb-2">
+                        사업계획서
+                        <q-icon name="las la-question-circle" class="cursor-pointer j-mb-1">
+                            <q-tooltip
+                                anchor="top middle"
+                                self="bottom start"
+                                :offset="[0, 0]"
+                                transition-show="fade"
+                                transition-hide="scale"
+                            >
+                                사업계획서, 제안서, 예산서 등
+                            </q-tooltip>
+                        </q-icon>
+                    </div>
+                    <file-pond
+                        name="test"
+                        ref="pond"
+                        label-idle="파일 올려놓기..."
+                        v-bind:allow-multiple="true"
+                        accepted-file-types="image/jpeg, image/png"
+                        server="/api"
+                        v-bind:files="myFiles"
+                        v-on:init="handleFilePondInit"
+                    >
+                    </file-pond>
+                </div>
+                <div class="col">
+                    <div class="text-body1 j-mb-2">
+                        결과보고서
+                        <q-icon name="las la-question-circle" class="cursor-pointer j-mb-1">
+                            <q-tooltip
+                                anchor="top middle"
+                                self="bottom start"
+                                :offset="[0, 0]"
+                                transition-show="fade"
+                                transition-hide="scale"
+                            >
+                                착수/중간/결과보고서, 정산서, 사업결과물 등
+                            </q-tooltip>
+                        </q-icon>
+                    </div>
+                    <file-pond
+                        name="test"
+                        ref="pond"
+                        label-idle="파일 올려놓기..."
+                        v-bind:allow-multiple="true"
+                        accepted-file-types="image/jpeg, image/png"
+                        server="/api"
+                        v-bind:files="myFiles"
+                        v-on:init="handleFilePondInit"
+                    >
+                    </file-pond>
+                </div>
+            </div>
+            <div class="j-mt-15">
                 <q-btn outline color="primary" label="저장" @click="handleSubmit(submit)" />
             </div>
         </vee-form>

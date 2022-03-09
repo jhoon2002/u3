@@ -48,6 +48,22 @@
         }
     }
 }
+@each $kind in (p: 'padding', m: 'margin') {
+    @each $pos in (x, y) {
+        @for $size from 0 to 16 {
+            .j-#{nth($kind, 1)}#{$pos}-#{$size} {
+                @if $pos == 'x' {
+                    #{nth($kind, 2)}-left: ($size * 4px);
+                    #{nth($kind, 2)}-right: ($size * 4px);
+                }
+                @if $pos == 'y' {
+                    #{nth($kind, 2)}-top: ($size * 4px);
+                    #{nth($kind, 2)}-bottom: ($size * 4px);
+                }
+            }
+        }
+    }
+}
 .q-field--standard .q-field__control:after {
     height: 1px;
 }
