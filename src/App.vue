@@ -49,7 +49,10 @@ export default {
 
         <q-page-container>
             <q-page class="q-pa-lg">
-                <router-view class="j-fade-in" />
+                <transition appear enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
+                    <router-view />
+                    <!--class="j-fade-in"-->
+                </transition>
             </q-page>
         </q-page-container>
 
