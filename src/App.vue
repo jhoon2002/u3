@@ -1,19 +1,18 @@
 <script>
 import { ref } from 'vue'
 import GlobalNav from '@/components/global-nav/GlobalNav.vue'
-import { useQuasar } from 'quasar'
+// import { useQuasar } from 'quasar'
 export default {
     components: { GlobalNav },
     setup() {
         const leftDrawerOpen = ref(false)
-        const $q = useQuasar()
+        // const $q = useQuasar()
 
         return {
             leftDrawerOpen,
             toggleLeftDrawer() {
                 leftDrawerOpen.value = !leftDrawerOpen.value
             },
-            $q,
         }
     },
 }
@@ -26,7 +25,7 @@ export default {
                     class="q-pt-xs row justify-between"
                     :class="$q.dark.mode ? 'text-white' : 'text-black'"
                 >
-                    <div>
+                    <div class="animated fadeIn">
                         <q-btn dense flat round icon="menu" class="j-mb-1" @click="toggleLeftDrawer" />
                         <span class="text-h5 j-ml-5">한국예술종합학교 산학협력단</span>
                     </div>
