@@ -45,7 +45,7 @@ export default {
 <template>
     <div>
         <vee-form
-            v-slot="{ handleSubmit, resetForm }"
+            v-slot="{ handleSubmit, resetForm, values }"
             :initial-values="{
                 사업종류: '산학협력사업',
                 부가가치세: '납부',
@@ -69,6 +69,7 @@ export default {
                 </q-btn>
             </div>
 
+            <pre>{{ values }}</pre>
             <!-- POST 수정시 :initial-values="{ '사업명(사용)': '아무거나' }" -->
             <div class="row q-gutter-md">
                 <text-input name="사업명(사용)" outlined :rules="{ required: true, min: 4, max: 100 }" class="col" />

@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
+    "ok": "vite",
     "build": "vite build",
     "preview": "vite preview --port 5050",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
@@ -11,6 +12,7 @@
     "@quasar/extras": "^1.12.5",
     "@vee-validate/i18n": "^4.5.9",
     "@vee-validate/rules": "^4.5.9",
+    "axios": "^0.26.1",
     "core-js": "^3.21.1",
     "filepond": "^4.30.3",
     "filepond-plugin-file-validate-type": "^1.2.6",

@@ -19,4 +19,19 @@ export default defineConfig({
             '@': fileURLToPath(new URL('./src', import.meta.url)),
         },
     },
+    server: {
+        port: 8080,
+        proxy: {
+            '/dev': {
+                target: 'http://localhost:3000',
+                changeOrigin: true,
+                rewrite: path => path.replace(/^\/dev/, ''),
+            },
+            '/pro': {
+                target: 'http://localhost:8080',
+                changeOrigin: true,
+                rewrite: path => path.replace(/^\/pro/, ''),
+            },
+        },
+    },
 })

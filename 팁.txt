@@ -149,7 +149,31 @@ Options Api의 라이프사이클 훅(ex mounted) <> Composition Api의 라이�
 computed 펑션: 읽기 전용 반응성 참조를 리턴(.value로 접근)
 ref, computed 사용 이유: 함수에서 반환될 때나 속성으로 할당될 때 반응성을 잃어버리기 때문에 래핑하고 해당 객체를 리턴
 
+-----------------------------
+reactive
+reactive는 객체와 배열, 셋(Set) 과 같은 형태의 데이터들을 담당한다.
 
+ref
+ref는 단순값(숫자, 문자열, 불린과 같은)을 담당한다.
+
+toRefs
+toRefs는 Reactivity API로 감싸진 값들을 일반형태로 변환하기 위한 함수이다.
+
+예)
+    const count = ref(0) // 단순값인 ref를 사용했다
+    const list = reactive([]) // 배열임으로 reactive를 사용했다
+    const readOnlyCount = readonly(count) // ref를 이용한 값에 readonly 속성을 지정하여 새로운 변수로 지정했다. 업데이트를 하려 해도 업데이트가 되지 않으며 count가 올라갈때 자동으로 참조되어 업데이트된다
+
+    const failedCount = reactive(0) // 단순값을 지정해야 할 곳에 reactive를 사용했다. 값이 반영되지 않는다.
+    const failedList = ref([]) // 배열에 ref를 사용했다. 값이 반영되지 않는다.
+
+    const updateList = (base) => {
+      base.push(Math.random()) // 왜인지 모르겠는데 직접 참조하면 안되는것이 function으로 동적으로 받아서 push하면 ref/reactive 상관없이 배열/셋이 반응한다. 버그인것같은데, 코드의 의도만 파악해주시라.
+    }
+---------------------------
+환경변수
+vue-cli: process.env.VUE_APP_...
+vite: import.meta.env.VITE_...
 
 
 

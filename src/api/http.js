@@ -1,11 +1,12 @@
 import axios from 'axios'
 
 const instance = axios.create({
-    baseURL: process.env.VUE_APP_WAS,
+    // baseURL: process.env.VUE_APP_WAS,
+    baseURL: import.meta.env.VITE_VUE_APP_WAS,
 })
 
 instance.interceptors.request.use(
-    (config) => {
+    config => {
         return config
     },
     function (error) {
@@ -14,10 +15,10 @@ instance.interceptors.request.use(
 )
 
 instance.interceptors.response.use(
-    (response) => {
+    response => {
         return response
     },
-    (error) => {
+    error => {
         return Promise.reject(error)
     },
 )

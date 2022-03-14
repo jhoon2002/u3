@@ -1,52 +1,63 @@
 <template>
-    <div id="app">
-        <file-pond
-            name="test"
-            ref="pond"
-            label-idle="Drop files here..."
-            v-bind:allow-multiple="true"
-            accepted-file-types="image/jpeg, image/png"
-            server="/api"
-            v-bind:files="myFiles"
-            v-on:init="handleFilePondInit"
-        />
+    <div class="q-pa-md">
+        <div class="q-gutter-md">
+            <q-select
+                filled
+                v-model="model"
+                use-input
+                hide-selected
+                fill-input
+                input-debounce="0"
+                label="Lazy filter"
+                :options="options"
+                @filter="filterFn"
+                @filter-abort="abortFilterFn"
+                style="width: 250px"
+                hint="With hide-selected and fill-input"
+            >
+                <template v-slot:no-option>
+                    <q-item>
+                        <q-item-section class="text-grey"> No results </q-item-section>
+                    </q-item>
+                </template>
+            </q-select>
+        </div>
     </div>
 </template>
 
 <script>
-// Import Vue FilePond
-import vueFilePond from 'vue-filepond'
+import { ref } from 'vue'
+import http from '@/api/http'
 
-// Import FilePond styles
-import 'filepond/dist/filepond.min.css'
-
-// Import FilePond plugins
-// Please note that you need to install these plugins separately
-
-// Import image preview plugin styles
-import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css'
-
-// Import image preview and file type validation plugins
-import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type'
-import FilePondPluginImagePreview from 'filepond-plugin-image-preview'
-
-// Create component
-const FilePond = vueFilePond(FilePondPluginFileValidateType, FilePondPluginImagePreview)
+const stringOptions = ['Google', 'Facebook', 'Twitter', 'Apple', 'Oracle']
 
 export default {
-    name: 'TestPage',
-    data: function () {
-        return { myFiles: [] }
-    },
-    methods: {
-        handleFilePondInit: function () {
-            console.log('FilePond has initialized')
+    setup() {
+        const options = ref(null)
 
-            // FilePond instance methods are available on `this.$refs.pond`
-        },
-    },
-    components: {
-        FilePond,
+        return {
+            model: ref(null),
+            options,
+
+            filterFn(val, update, abort) {
+                // call abort() at any time if you can't retrieve data somehow
+
+                update(async () => {
+                    try {
+                        const {
+                            data: { users },
+                        } = await http.get('/api/users/userid-name/' + val)
+                        options.value = users.map(item => item.name + ' ' + item.birthday)
+                    } catch {
+                        //
+                    }
+                })
+            },
+
+            abortFilterFn() {
+                // console.log('delayed filter aborted')
+            },
+        }
     },
 }
 </script>

@@ -8,11 +8,14 @@ export default {
         const leftDrawerOpen = ref(false)
         // const $q = useQuasar()
 
+        const name = ref(import.meta.env.VITE_NAME)
+
         return {
             leftDrawerOpen,
             toggleLeftDrawer() {
                 leftDrawerOpen.value = !leftDrawerOpen.value
             },
+            name,
         }
     },
 }
@@ -20,6 +23,7 @@ export default {
 <template>
     <q-layout view="hHh LpR lff">
         <q-header bordered style="backdrop-filter: blur(1px); background-color: #0000001a">
+            {{ name }}
             <q-toolbar>
                 <q-toolbar-title
                     class="q-pt-xs row justify-between"
@@ -48,10 +52,7 @@ export default {
 
         <q-page-container>
             <q-page class="q-pa-lg">
-                <transition appear enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
-                    <router-view />
-                    <!--class="j-fade-in"-->
-                </transition>
+                <router-view class="animate__animated animate__fadeIn animate__faster" />
             </q-page>
         </q-page-container>
 
@@ -65,3 +66,9 @@ export default {
         </q-footer>
     </q-layout>
 </template>
+<style scoped>
+/*.animate__animated.animate__slideInLeft {*/
+/*    --animate-duration: 0.1s;*/
+/*    --animate-delay: 0;*/
+/*}*/
+</style>
