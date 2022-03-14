@@ -1,6 +1,12 @@
 <template>
     <div class="q-pa-md">
         <div class="q-gutter-md">
+            <input :value="inputValue" @input="inputValue = $event.target.value" />
+            inputValue: {{ inputValue }}
+
+            <q-input :model-value="inputValue" @change="inputValue = $event" />
+
+            <div>model: {{ model }}</div>
             <q-select
                 filled
                 v-model="model"
@@ -10,11 +16,14 @@
                 input-debounce="0"
                 label="Lazy filter"
                 :options="options"
-                @filter="filterFn"
-                @filter-abort="abortFilterFn"
+                @new-value="getData"
                 style="width: 250px"
                 hint="With hide-selected and fill-input"
             >
+                <!--
+                @filter="filterFn"
+                @filter-abort="abortFilterFn"
+            -->
                 <template v-slot:no-option>
                     <q-item>
                         <q-item-section class="text-grey"> No results </q-item-section>
@@ -33,9 +42,24 @@ const stringOptions = ['Google', 'Facebook', 'Twitter', 'Apple', 'Oracle']
 
 export default {
     setup() {
+        const inputValue = ref(null)
         const options = ref(null)
 
+        const getData = async val => {
+            try {
+                const {
+                    data: { users },
+                } = await http.get('/api/users/userid-name/' + val)
+                console.log(users)
+                options.value = users.map(item => item.name + ' ' + item.birthday)
+            } catch {
+                //
+            }
+        }
+
         return {
+            getData,
+            inputValue,
             model: ref(null),
             options,
 
