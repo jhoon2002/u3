@@ -8,6 +8,7 @@
 
             <div>model: {{ model }}</div>
             <q-select
+                ref="ya"
                 filled
                 v-model="model"
                 use-input
@@ -30,20 +31,27 @@
                     </q-item>
                 </template>
             </q-select>
+            <q-btn @click="$refs.ya.showPopup()" label="오픈" />
         </div>
     </div>
 </template>
 
 <script>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import http from '@/api/http'
 
-const stringOptions = ['Google', 'Facebook', 'Twitter', 'Apple', 'Oracle']
+// const stringOptions = ['Google', 'Facebook', 'Twitter', 'Apple', 'Oracle']
 
 export default {
     setup() {
         const inputValue = ref(null)
         const options = ref(null)
+        const ya = ref(null)
+
+        onMounted(() => {
+            // ref 로 native element 를 가져와서 input 이벤트가 발생할때 model 에 연결된 변수에 값을 저장한다.
+            // ya.value.showPopup()
+        })
 
         const getData = async val => {
             try {
@@ -52,12 +60,16 @@ export default {
                 } = await http.get('/api/users/userid-name/' + val)
                 console.log(users)
                 options.value = users.map(item => item.name + ' ' + item.birthday)
+                this.$nextTick(() => {
+                    this.$refs.ya.showPopup()
+                })
             } catch {
                 //
             }
         }
 
         return {
+            ya,
             getData,
             inputValue,
             model: ref(null),
