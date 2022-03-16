@@ -9,6 +9,8 @@
                 v-model="model"
                 use-input
                 :options="options"
+                emit-value
+                map-options
                 style="width: 250px"
                 @new-value="getData"
             >
@@ -28,16 +30,23 @@ import http from '@/api/http'
 
 export default {
     setup() {
-        const options = ref(null)
+        const options = ref([])
         const ya = ref(null)
         const model = ref(null)
+
+        // const getData = () => {
+        //     return null
+        // }
 
         const getData = async (val, doneFn) => {
             try {
                 const {
                     data: { users },
                 } = await http.get('/api/users/userid-name/' + val)
-                options.value = users.map(item => item.name + ' ' + item.birthday)
+                options.value = users.map(item => ({
+                    value: item.userid,
+                    label: `${item.name}(${item.birthday})`,
+                }))
                 if (options.value.length === 1) {
                     // model.value = options.value[0]
                     doneFn(options.value[0])
