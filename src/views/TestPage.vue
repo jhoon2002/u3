@@ -1,70 +1,43 @@
-<template>
-    <div class="q-pa-md">
-        <div class="q-gutter-md">
-            model: {{ model }}
-            <q-select
-                ref="ya"
-                label="연구책임자"
-                outlined
-                v-model="model"
-                use-input
-                :options="options"
-                emit-value
-                map-options
-                style="width: 250px"
-                @new-value="getData"
-            >
-                <template v-slot:no-option>
-                    <q-item>
-                        <q-item-section class="text-grey"> 이름 입력후 Enter </q-item-section>
-                    </q-item>
-                </template>
-            </q-select>
-        </div>
-    </div>
-</template>
+<script setup>
+import { onMounted, ref } from 'vue'
+import http from '@/api/http.js'
 
-<script>
-import { ref } from 'vue'
-import http from '@/api/http'
+const keyword = ref(null)
+const keywordRef = ref(null)
+const options = ref([])
 
-export default {
-    setup() {
-        const options = ref([])
-        const ya = ref(null)
-        const model = ref(null)
+onMounted(() => {
+    // ref 로 native element 를 가져와서 input 이벤트가 발생할때 model 에 연결된 변수에 값을 저장한다.
+    const el = keywordRef.value.getNativeElement()
+    el.addEventListener('input', e => {
+        //model
+        keyword.value = e.target.value
 
-        // const getData = () => {
-        //     return null
-        // }
-
-        const getData = async (val, doneFn) => {
+        //getData
+        setTimeout(async () => {
             try {
                 const {
                     data: { users },
-                } = await http.get('/api/users/userid-name/' + val)
-                options.value = users.map(item => ({
-                    value: item.userid,
-                    label: `${item.name}(${item.birthday})`,
-                }))
-                if (options.value.length === 1) {
-                    // model.value = options.value[0]
-                    doneFn(options.value[0])
-                } else {
-                    ya.value.showPopup()
-                }
-            } catch (e) {
-                console.log(e)
+                } = await http.get('/api/users/userid-name/' + e.target.value)
+                options.value = users.map(item => item.name + ' ' + item.birthday)
+            } catch {
+                //
             }
-            return
-        }
+        }, 1000)
+    })
+})
 
-        return {
-            ya,
-            getData,
-            model,
-            options,
-        }
-    },
-}
+// const some = val => {
+//     console.log('val', val)
+// }
 </script>
+<template>
+    <div class="row">
+        <div class="col">
+            <q-input ref="keywordRef" :model-value="keyword" label="연구책임자" />
+        </div>
+        <div class="col">{{ keyword }}</div>
+        <div class="col">{{ options }}</div>
+        <div class="col" />
+    </div>
+</template>
