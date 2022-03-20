@@ -43,13 +43,13 @@ export default {
         },
     },
     setup(props) {
-        const { handleChange } = useField(props.name, props.rules)
+        const { handleChange } = useField(props.name)
         const inputRef = ref(null)
 
         onMounted(() => {
             const el = inputRef.value.getNativeElement()
             el.addEventListener('input', e => {
-                handleChange(e, true)
+                handleChange(e, false)
             })
         })
 
@@ -78,7 +78,7 @@ export default {
                 :model-value="field.value"
                 :input-style="$props.inputStyle"
                 :input-class="$props.inputClass"
-                ><!--@update:model-value="handleChange"-->
+            >
                 <template v-slot:label> {{ name }} <required-sign v-if="rules.required" /> </template>
             </q-input>
         </vee-field>

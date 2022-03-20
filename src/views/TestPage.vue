@@ -1,45 +1,47 @@
 <script setup>
-import { onMounted, ref } from 'vue'
-import http from '@/api/http.js'
+import vSelect from 'vue-select'
+import 'vue-select/dist/vue-select.css'
+import { reactive, ref } from 'vue'
+import http from '@/api/http'
+import JsonViewer from 'vue-json-viewer'
 
-const keyword = ref(null)
-const keywordRef = ref(null)
-const options = ref([])
-let timeout = null
+const selectValue = ref(null)
+const options = reactive([])
 
-onMounted(() => {
-    // ref 로 native element 를 가져와서 input 이벤트가 발생할때 model 에 연결된 변수에 값을 저장한다.
-    const el = keywordRef.value.getNativeElement()
-    el.addEventListener('input', async e => {
-        //model
-        keyword.value = e.target.value
-
-        //getData
-        clearTimeout(timeout)
-        timeout = setTimeout(async () => {
-            try {
-                const {
-                    data: { users },
-                } = await http.get('/api/users/userid-name/' + e.target.value)
-                options.value = users.map(item => item.name + ' ' + item.birthday)
-            } catch (e) {
-                console.log(e)
-            }
-        }, 400)
-    })
-})
-
-// const some = val => {
-//     console.log('val', val)
-// }
+const getData = async e => {
+    const val = e.target.value
+    try {
+        const {
+            data: { users },
+        } = await http.get('/api/users/userid-name/' + val)
+        options.value = users.map(item => ({
+            value: item.userid,
+            label: `${item.name}(${item.birthday})`,
+        }))
+        console.log(options.value)
+    } catch (e) {
+        console.log(e)
+    }
+}
 </script>
 <template>
-    <div class="row">
-        <div class="col">
-            <q-input ref="keywordRef" :model-value="keyword" label="연구책임자" />
+    <div>
+        <div class="row">
+            <div class="col">
+                <v-select :options="options.value" :reduce="item => item.value" @input="getData" v-model="selectValue">
+                    <template v-slot:no-options="{ search, searching }">
+                        <template v-if="searching">
+                            <span class="text-negative">'{{ search }}'에 해당하는 데이터가 없습니다. </span>
+                        </template>
+                        <span v-else class="text-primary">찾는 이름 입력</span>
+                    </template>
+                </v-select>
+            </div>
+            <div class="col">
+                <json-viewer :value="options.value" :expand-depth="5" copyable boxed sort></json-viewer>
+                selectValue: {{ selectValue }}
+            </div>
+            <div class="col" />
         </div>
-        <div class="col">{{ keyword }}</div>
-        <div class="col">{{ options }}</div>
-        <div class="col" />
     </div>
 </template>

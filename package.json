@@ -18,11 +18,13 @@
     "filepond-plugin-file-validate-type": "^1.2.6",
     "filepond-plugin-image-preview": "^4.6.10",
     "num-to-korean": "^0.4.3",
-    "quasar": "^2.5.5",
+    "quasar": "^2.6.1",
     "vee-validate": "^4.5.9",
     "vue": "^3.2.31",
     "vue-filepond": "^7.0.2",
-    "vue-router": "^4.0.12"
+    "vue-json-viewer": "^3.0.4",
+    "vue-router": "^4.0.12",
+    "vue-select": "^4.0.0-beta.3"
   },
   "devDependencies": {
     "@quasar/vite-plugin": "^1.0.5",

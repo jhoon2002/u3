@@ -4,6 +4,7 @@ import TextInput from '@/components/form/TextInput.vue'
 import DateInput from '@/components/form/DateInput.vue'
 import RadioInput from '@/components/form/RadioInput.vue'
 import NumberInput from '@/components/form/NumberInput.vue'
+import InputSelect from '@/components/form/InputSelect.vue'
 
 import vueFilePond from 'vue-filepond'
 import 'filepond/dist/filepond.min.css'
@@ -22,6 +23,7 @@ export default {
         DateInput,
         NumberInput,
         FilePond,
+        InputSelect,
     },
     setup() {
         const submit = values => {
@@ -34,10 +36,12 @@ export default {
 
             // FilePond instance methods are available on `this.$refs.pond`
         }
+        const abc = ref('')
         return {
             submit,
             myFiles: ref([]),
             handleFilePondInit,
+            abc,
         }
     },
 }
@@ -74,7 +78,7 @@ export default {
             <div class="row q-gutter-md">
                 <text-input name="사업명(사용)" outlined :rules="{ required: true, min: 4, max: 100 }" class="col" />
                 <text-input name="사업명(공식)" outlined :rules="{ required: true, min: 4, max: 100 }" class="col" />
-                <text-input name="연구책임자" outlined :rules="{ required: true, min: 4, max: 100 }" class="col" />
+                <input-select name="연구책임자" class="col" :rules="{ required: true, min: 40, max: 100 }" />
                 <text-input name="지원기관" outlined :rules="{ required: true, min: 4, max: 100 }" class="col" />
             </div>
             <div class="row q-gutter-md j-mt-0">
