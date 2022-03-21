@@ -63,13 +63,19 @@ const deleteValue = () => {
                     </template>
                     <span v-else class="text-primary">찾는 이름 입력</span>
                 </template>
+                <template v-slot:search="{ attributes, events }">
+                    <input maxlength="1" class="vs__search" v-bind="attributes" v-on="events" style="height: 46px" />
+                </template>
             </v-select>
             {{ errorMessage }}
         </vee-field>
     </div>
-    <!--            <div class="col">-->
-    <!--                <json-viewer :value="options.value" :expand-depth="5" copyable boxed sort></json-viewer>-->
-    <!--                selectValue: {{ selectValue }}-->
-    <!--            </div>-->
-    <!--            <div class="col" />-->
 </template>
+<style scoped>
+>>> {
+    --vs-actions-padding: 4px 15px 0 3px;
+    --vs-dropdown-option-padding: 8px 20px;
+    --vs-dropdown-option--active-bg: #e3e3e3;
+    --vs-dropdown-option--active-color: #000000;
+}
+</style>
