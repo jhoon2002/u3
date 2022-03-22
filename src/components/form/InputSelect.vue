@@ -22,10 +22,12 @@ const props = defineProps({
 
 const options = reactive([])
 
-const getData = async e => {
-    console.log('---------//--------')
-    const val = e.target.value
+const getData = async (val, loading) => {
+    // console.log('in getData')
+    // const val = e.target.value
+    inputValue.value = val
     try {
+        loading(true)
         const {
             data: { users },
         } = await http.get('/api/users/userid-name/' + val)
@@ -36,29 +38,30 @@ const getData = async e => {
         console.log(options.value)
     } catch (e) {
         // console.log(e)
+    } finally {
+        loading(false)
     }
 }
 
 const { handleChange } = useField(props.name, props.rules)
 
 const updateValue = e => {
-    console.log('---------//--------')
     handleChange(e.value, true)
 }
-const deleteValue = () => {
-    console.log('---------//--------')
-    handleChange('', true)
-}
+
+const model = ref('')
 </script>
 <template>
     <div>
-        <vee-field :name="$props.name" :rules="$props.rules" v-slot="{ field, errorMessage, errors }">
+        <vee-field :name="$props.name" :rules="$props.rules" v-slot="{ field, errorMessage }">
+            mo: {{ model }} / iv: {{ inputValue }}
             <v-select
                 clearable
                 :options="options.value"
                 :value="field.value"
-                @input="getData"
+                v-model="model"
                 @option:selected="updateValue"
+                @search="getData"
             >
                 <template v-slot:no-options="{ search, searching }">
                     <template v-if="searching">
@@ -67,31 +70,21 @@ const deleteValue = () => {
                     <span v-else class="text-primary">찾는 이름 입력</span>
                 </template>
                 <template v-slot:search="{ attributes, events }">
-                    <div :class="inputClass">사업명(공식) <required-sign v-if="rules.required" /></div>
+                    <div :class="model ? 'focused' : inputClass">
+                        사업명(공식) <required-sign v-if="rules.required" />
+                    </div>
                     <input
                         class="vs__search"
                         v-bind="attributes"
                         v-on="events"
-                        v-model="inputValue"
                         style="height: 39px; margin: 15px 0 -4px 2px; color: #212121"
                         @focus="inputClass = 'focused'"
                         @blur="inputValue ? (inputClass = 'focused') : (inputClass = 'blured')"
                     />
                 </template>
-                <template v-slot:selected-option="{ label }">
-                    <div
-                        style="
-                            display: flex;
-                            align-items: baseline;
-                            margin: 16px 0 0 3px;
-                            color: #212121;
-                            border: 1px solid grey;
-                            border-radius: 5px;
-                            padding: 0 4px 0 4px;
-                            background: #e8e8e8;
-                        "
-                    >
-                        {{ label }}
+                <template v-slot:selected-option-container="{ option }">
+                    <div style="display: flex; align-items: baseline; margin: 25px 0 0 9px; color: #212121">
+                        {{ option.label }}
                     </div>
                 </template>
             </v-select>
@@ -121,10 +114,11 @@ const deleteValue = () => {
 }
 .focused {
     position: absolute;
-    top: 8px;
-    left: 11px;
-    font-size: 12px;
+    top: 15px;
+    left: 12px;
+    font-size: 16px;
     color: $primary;
     transition: all 0.3s;
+    transform: scale(0.75) translate(-17px, -15px);
 }
 </style>
