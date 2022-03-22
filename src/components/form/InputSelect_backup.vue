@@ -7,7 +7,8 @@ import { reactive, ref } from 'vue'
 import http from '@/api/http'
 // import JsonViewer from 'vue-json-viewer'
 
-const inputValue = ref(null)
+const inputClass = ref('blured')
+const inputValue = ref('')
 const props = defineProps({
     name: {
         type: String,
@@ -48,23 +49,8 @@ const updateValue = e => {
     handleChange(e.value, true)
 }
 
-const model = ref(null)
+const model = ref('')
 const isFocus = ref(false)
-// const Deselect = reactive({
-//     render: createElement => createElement('span', 'X'),
-// })
-</script>
-<script>
-export default {
-    name: 'InputSelect',
-    data() {
-        return {
-            Deselect: {
-                render: createElement => createElement('span', '❌'),
-            },
-        }
-    },
-}
 </script>
 <template>
     <div>
@@ -74,7 +60,6 @@ export default {
                 :options="options.value"
                 :value="field.value"
                 v-model="model"
-                :components="{ Deselect }"
                 @option:selected="updateValue"
                 @search="getData"
             >
