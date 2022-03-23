@@ -1,13 +1,13 @@
 <script setup>
 import { Field as VeeField, useField } from 'vee-validate'
 import RequiredSign from '@/components/form/RequiredSign.vue'
-import vSelect from 'vue-select'
+import VSelect from 'vue-select'
 import 'vue-select/dist/vue-select.css'
-import { reactive, ref } from 'vue'
+import { computed, reactive, ref } from 'vue'
 import http from '@/api/http'
-// import JsonViewer from 'vue-json-viewer'
+// import { h } from 'vue'
+// import { QIcon } from 'quasar'
 
-const inputValue = ref(null)
 const props = defineProps({
     name: {
         type: String,
@@ -18,8 +18,40 @@ const props = defineProps({
         required: true,
     },
 })
-
+const { handleChange, value: fieldValue } = useField(props.name, props.rules)
+const inputValue = ref(null)
 const options = reactive([])
+const modelValue = ref(null)
+const model = computed({
+    get: () => modelValue.value,
+    set: val => {
+        if (!val) {
+            fieldValue.value = ''
+            options.value = []
+        }
+        modelValue.value = val
+    },
+})
+const isFocus = ref(false)
+const Deselect = {
+    render: () => null, //사용 안함, 굳이 사용할 필요 없을 듯
+    // h(QIcon, {
+    //     name: 'bi-x',
+    //     size: 'sm',
+    //     // style: {
+    //     //     position: 'absolute',
+    //     //     right: 0,
+    //     //     top: 0,
+    //     // },
+    // }),
+}
+const OpenIndicator = {
+    render: () => null, //사용 안함, 굳이 사용할 필요 없을 듯
+    // h(QIcon, {
+    //     name: 'las la-angle-up',
+    //     size: 'xs',
+    // }),
+}
 
 const getData = async (val, loading) => {
     // console.log('in getData')
@@ -41,42 +73,26 @@ const getData = async (val, loading) => {
         loading(false)
     }
 }
-
-const { handleChange } = useField(props.name, props.rules)
-
 const updateValue = e => {
     handleChange(e.value, true)
 }
 
-const model = ref(null)
-const isFocus = ref(false)
-// const Deselect = reactive({
-//     render: createElement => createElement('span', 'X'),
-// })
-</script>
-<script>
-export default {
-    name: 'InputSelect',
-    data() {
-        return {
-            Deselect: {
-                render: createElement => createElement('span', '❌'),
-            },
-        }
-    },
-}
+const borderColor = reactive({
+    '--vs-border-color': 'red',
+})
 </script>
 <template>
     <div>
-        <vee-field :name="$props.name" :rules="$props.rules" v-slot="{ field, errorMessage }">
+        <vee-field :name="$props.name" :rules="$props.rules" v-slot="{ field, errorMessage, errors }">
             <v-select
                 clearable
                 :options="options.value"
                 :value="field.value"
                 v-model="model"
-                :components="{ Deselect }"
+                :components="{ Deselect, OpenIndicator }"
                 @option:selected="updateValue"
                 @search="getData"
+                :style="borderColor"
             >
                 <template v-slot:no-options="{ search, searching }">
                     <template v-if="searching">
@@ -85,7 +101,13 @@ export default {
                     <span v-else class="text-primary">찾는 이름 입력</span>
                 </template>
                 <template v-slot:search="{ attributes, events }">
-                    <div :class="isFocus || model || inputValue ? 'focused' : 'blured'">
+                    <div
+                        :class="{
+                            focused: isFocus || model || inputValue,
+                            blured: !(isFocus || model || inputValue),
+                            tremble: errors.length > 0,
+                        }"
+                    >
                         사업명(공식) <required-sign v-if="rules.required" />
                     </div>
                     <input
@@ -102,13 +124,11 @@ export default {
                         {{ option.label }}
                     </div>
                 </template>
-                <template v-slot:open-indicator="{ attributes }">
-                    <span v-bind="attributes" class="cursor-pointer">
-                        <q-icon name="keyboard_arrow_down" size="sm" color="grey" />
-                    </span>
+                <template #spinner="{ loading }">
+                    <q-spinner-hourglass v-if="loading" color="grey" size="1.5em" />
                 </template>
             </v-select>
-            {{ errorMessage }}
+            <div class="error-message">{{ errorMessage }}</div>
         </vee-field>
     </div>
 </template>
@@ -130,7 +150,8 @@ export default {
     left: 12px;
     font-size: 16px;
     color: #818181;
-    transition: all 0.3s;
+    transform-origin: left top;
+    transition: transform 0.36s cubic-bezier(0.4, 0, 0.2, 1), max-width 0.324s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .focused {
     position: absolute;
@@ -138,7 +159,30 @@ export default {
     left: 12px;
     font-size: 16px;
     color: $primary;
-    transition: all 0.3s;
-    transform: scale(0.75) translate(-17px, -15px);
+    //transition: all 0.3s;
+    //transform: scale(0.75) translate(-17px, -15px);
+    transform-origin: left top;
+    transform: translateY(-40%) scale(0.75);
+    transition: transform 0.36s cubic-bezier(0.4, 0, 0.2, 1), max-width 0.396s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.error-message {
+    font-size: 12px;
+    line-height: 1;
+    color: $negative;
+    margin: 8px 0 0 12px;
+}
+.tremble {
+    //animation-duration: 1s;
+    //animation-timing-function: ease;
+    //animation-delay: 0s;
+    //animation-iteration-count: 1;
+    //animation-direction: normal;
+    //animation-fill-mode: none;
+    //animation-play-state: running;
+    animation: q-field-label 0.36s;
+    color: $negative;
+}
+.error {
+    border-color: $negative;
 }
 </style>

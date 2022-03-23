@@ -1,6 +1,8 @@
 <script>
 import vSelect from 'vue-select'
 import 'vue-select/dist/vue-select.css'
+import { h } from 'vue'
+import { QIcon } from 'quasar'
 
 export default {
     name: 'TestPage',
@@ -9,8 +11,8 @@ export default {
     },
     data: () => ({
         Deselect: {
-            render: function (createElement) {
-                return createElement('span', '❌')
+            render: () => {
+                return h(QIcon, { name: 'close' })
             },
         },
         OpenIndicator: {
@@ -22,6 +24,6 @@ export default {
 </script>
 <template>
     <div>
-        <v-select :components="{ Deselect, OpenIndicator }" :options="options" />
+        <v-select :components="{ Deselect }" :options="options" />
     </div>
 </template>
