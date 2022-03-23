@@ -4,7 +4,7 @@ import TextInput from '@/components/form/TextInput.vue'
 import DateInput from '@/components/form/DateInput.vue'
 import RadioInput from '@/components/form/RadioInput.vue'
 import NumberInput from '@/components/form/NumberInput.vue'
-import InputSelect from '@/components/form/InputSelect.vue'
+import UserSelect from '@/components/form/UserSelect.vue'
 
 import vueFilePond from 'vue-filepond'
 import 'filepond/dist/filepond.min.css'
@@ -23,7 +23,7 @@ export default {
         DateInput,
         NumberInput,
         FilePond,
-        InputSelect,
+        UserSelect,
     },
     setup() {
         const submit = values => {
@@ -73,14 +73,14 @@ export default {
                 </q-btn>
             </div>
 
-            <pre>{{ values }}</pre>
             <!-- POST 수정시 :initial-values="{ '사업명(사용)': '아무거나' }" -->
             <div class="row q-gutter-md">
                 <text-input name="사업명(사용)" outlined :rules="{ required: true, min: 4, max: 100 }" class="col" />
                 <text-input name="사업명(공식)" outlined :rules="{ required: true, min: 4, max: 100 }" class="col" />
-                <input-select name="연구책임자" class="col" :rules="{ required: true, min: 40, max: 100 }" />
+                <user-select name="연구책임자" :rules="{ required: true, min: 1, max: 100 }" class="col" />
                 <text-input name="지원기관" outlined :rules="{ required: true, min: 4, max: 100 }" class="col" />
             </div>
+            <pre>{{ values }}</pre>
             <div class="row q-gutter-md j-mt-0">
                 <date-input name="계약한날" outlined :rules="{ required: true, date: true }" class="col" />
                 <date-input name="착수한날" outlined :rules="{ required: true, date: true }" class="col" />
@@ -186,8 +186,7 @@ export default {
                                 transition-show="fade"
                                 transition-hide="scale"
                             >
-                                산학연협력계약서, 협정서, 협약서,<br />
-                                제안요청서, 사업공고,<br />
+                                산학연협력계약서, 협정서, 협약서, 제안서,<br />
                                 근로계약서, 연구원계약서, 용역계약서 등 <br />
                                 각종 계약서 일체
                             </q-tooltip>

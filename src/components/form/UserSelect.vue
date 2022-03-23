@@ -5,8 +5,7 @@ import VSelect from 'vue-select'
 import 'vue-select/dist/vue-select.css'
 import { computed, reactive, ref } from 'vue'
 import http from '@/api/http'
-// import { h } from 'vue'
-// import { QIcon } from 'quasar'
+import { getCssVar } from 'quasar'
 
 const props = defineProps({
     name: {
@@ -18,7 +17,7 @@ const props = defineProps({
         required: true,
     },
 })
-const { handleChange, value: fieldValue } = useField(props.name, props.rules)
+const { handleChange, value: fieldValue, errors } = useField(props.name, props.rules)
 const inputValue = ref(null)
 const options = reactive([])
 const modelValue = ref(null)
@@ -34,28 +33,14 @@ const model = computed({
 })
 const isFocus = ref(false)
 const Deselect = {
-    render: () => null, //사용 안함, 굳이 사용할 필요 없을 듯
-    // h(QIcon, {
-    //     name: 'bi-x',
-    //     size: 'sm',
-    //     // style: {
-    //     //     position: 'absolute',
-    //     //     right: 0,
-    //     //     top: 0,
-    //     // },
-    // }),
+    render: () => null, //삭제(X) 아이콘 사용 안함
+    // h(QIcon, { name: 'bi-x', size: 'sm', style: { position: 'absolute', right: 0, top: 0, }, }),
 }
 const OpenIndicator = {
-    render: () => null, //사용 안함, 굳이 사용할 필요 없을 듯
-    // h(QIcon, {
-    //     name: 'las la-angle-up',
-    //     size: 'xs',
-    // }),
+    render: () => null, //화살표 목록 아이콘 사용 안함
 }
 
 const getData = async (val, loading) => {
-    // console.log('in getData')
-    // const val = e.target.value
     inputValue.value = val
     try {
         loading(true)
@@ -76,9 +61,28 @@ const getData = async (val, loading) => {
 const updateValue = e => {
     handleChange(e.value, true)
 }
-
-const borderColor = reactive({
-    '--vs-border-color': 'red',
+// const plainBorder = {
+//     '--vs-border-color': 'rgba(0, 0, 0, 0.24)',
+// }
+// const errorBorder = {
+//     '--vs-border-color': getCssVar('negative'),
+// }
+const validationBorder = computed({
+    get: () => {
+        if (errors.value.length > 0) {
+            return {
+                '--vs-border-color': getCssVar('negative'),
+            }
+        }
+        if (isFocus.value) {
+            return {
+                '--vs-border-color': getCssVar('primary'),
+            }
+        }
+        return {
+            '--vs-border-color': 'rgba(0, 0, 0, 0.24)',
+        }
+    },
 })
 </script>
 <template>
@@ -92,13 +96,19 @@ const borderColor = reactive({
                 :components="{ Deselect, OpenIndicator }"
                 @option:selected="updateValue"
                 @search="getData"
-                :style="borderColor"
+                :style="validationBorder"
             >
                 <template v-slot:no-options="{ search, searching }">
-                    <template v-if="searching">
-                        <span class="text-negative">'{{ search }}'에 해당하는 데이터가 없습니다. </span>
-                    </template>
-                    <span v-else class="text-primary">찾는 이름 입력</span>
+                    <span
+                        :class="{
+                            'text-caption': true,
+                            'text-negative': errors.length,
+                            'text-primary': !errors.length,
+                        }"
+                    >
+                        <template v-if="searching"> '{{ search }}'에 해당하는 데이터가 없습니다. </template>
+                        <template v-else> 검색어(이름) 입력.. </template>
+                    </span>
                 </template>
                 <template v-slot:search="{ attributes, events }">
                     <div
@@ -108,7 +118,7 @@ const borderColor = reactive({
                             tremble: errors.length > 0,
                         }"
                     >
-                        사업명(공식) <required-sign v-if="rules.required" />
+                        {{ $props.name }} <required-sign v-if="$props.rules.required" />
                     </div>
                     <input
                         class="vs__search"
@@ -120,7 +130,7 @@ const borderColor = reactive({
                     />
                 </template>
                 <template v-slot:selected-option-container="{ option }">
-                    <div style="display: flex; align-items: baseline; margin: 25px 0 0 9px; color: #212121">
+                    <div style="display: flex; align-items: baseline; margin: 24px 0 0 9px; color: #212121">
                         {{ option.label }}
                     </div>
                 </template>
@@ -146,8 +156,8 @@ const borderColor = reactive({
 <style lang="scss" scoped>
 .blured {
     position: absolute;
-    top: 15px;
-    left: 12px;
+    top: 17px;
+    left: 11px;
     font-size: 16px;
     color: #818181;
     transform-origin: left top;
@@ -155,8 +165,8 @@ const borderColor = reactive({
 }
 .focused {
     position: absolute;
-    top: 15px;
-    left: 12px;
+    top: 17px;
+    left: 11px;
     font-size: 16px;
     color: $primary;
     //transition: all 0.3s;
@@ -184,5 +194,12 @@ const borderColor = reactive({
 }
 .error {
     border-color: $negative;
+}
+</style>
+<style>
+.vs__dropdown-toggle,
+.vs__dropdown-menu {
+    /*border-color: var(--vs-border-colors--valid);*/
+    /*transition: border 0.3s;*/
 }
 </style>
