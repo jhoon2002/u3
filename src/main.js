@@ -2,7 +2,7 @@
 
 import { createApp } from 'vue'
 import router from './router'
-import { Quasar } from 'quasar'
+import { Quasar, Notify } from 'quasar'
 import quasarLang from 'quasar/lang/ko-KR'
 
 // Import icon libraries
@@ -33,7 +33,12 @@ const myApp = createApp(App)
 myApp.use(router)
 
 myApp.use(Quasar, {
-    plugins: {}, // import Quasar plugins and add here
+    plugins: {
+        Notify,
+    }, // import Quasar plugins and add here
+    config: {
+        notify: { type: String, color: 'primary' },
+    },
     lang: quasarLang,
 })
 

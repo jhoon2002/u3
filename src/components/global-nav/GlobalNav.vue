@@ -38,7 +38,7 @@ export default {
                         </q-item-label>
                     </q-item-section>
                 </template>
-                <global-nav :items="item.children" />
+                <global-nav :items="item.children.filter(i => !i.hidden)" />
             </q-expansion-item>
             <q-item v-else :key="item.path" :to="item.path ? item.path : '/'">
                 <q-item-section v-if="item.icon" avatar style="min-width: 30px">

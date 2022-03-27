@@ -117,6 +117,7 @@ const validationBorder = computed({
                             blured: !(isFocus || model || inputValue),
                             tremble: errors.length > 0,
                         }"
+                        class="text-body1"
                     >
                         {{ $props.name }} <required-sign v-if="$props.rules.required" />
                     </div>
@@ -159,7 +160,8 @@ const validationBorder = computed({
     top: 17px;
     left: 11px;
     font-size: 16px;
-    color: #818181;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.6);
     transform-origin: left top;
     transition: transform 0.36s cubic-bezier(0.4, 0, 0.2, 1), max-width 0.324s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -196,10 +198,52 @@ const validationBorder = computed({
     border-color: $negative;
 }
 </style>
-<style>
-.vs__dropdown-toggle,
-.vs__dropdown-menu {
-    /*border-color: var(--vs-border-colors--valid);*/
-    /*transition: border 0.3s;*/
+<!--
+div v-select vs--single vs--searchable / vs--open
+  div vs__dropdown-toggle
+    div vs_selected-options
+      div blured => focused
+      input vs__search
+    div vs__actions
+  ul '' => vs__dropdow
+-->
+<style lang="scss">
+.vs__dropdown-toggle:before,
+.vs__dropdown-toggle:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    pointer-events: none;
+}
+.vs__dropdown-toggle {
+    border: none;
+    position: relative;
+    outline: none;
+}
+.vs__dropdown-toggle:before {
+    border-radius: inherit;
+    border: 1px solid rgba(0, 0, 0, 0.24);
+    transition: border-color 0.36s cubic-bezier(0.4, 0, 0.2, 1);
+}
+/* 불필요한듯 */
+.vs--open .vs__dropdown-toggle:hover:before {
+    border-color: transparent;
+}
+.vs__dropdown-toggle:hover:before {
+    border-color: #000;
+}
+.vs__dropdown-toggle:after {
+    height: inherit;
+    border-radius: inherit;
+    border: 2px solid transparent;
+    transition: border-color 0.36s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.vs--open .vs__dropdown-toggle:after {
+    border-width: 1px;
+    border-color: $primary;
+    //transform: scale3d(1, 1, 1); var(--validation-border-color)
 }
 </style>

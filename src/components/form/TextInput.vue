@@ -41,6 +41,14 @@ export default {
             type: Object,
             required: true,
         },
+        requiredIcon: {
+            type: String,
+            default: 'las la-asterisk',
+        },
+        isRequiredIcon: {
+            type: Boolean,
+            default: true,
+        },
     },
     setup(props) {
         const { handleChange } = useField(props.name, props.rules)
@@ -79,7 +87,11 @@ export default {
                 :input-style="$props.inputStyle"
                 :input-class="$props.inputClass"
                 ><!--@update:model-value="handleChange"-->
-                <template v-slot:label> {{ name }} <required-sign v-if="rules.required" /> </template>
+                <template v-slot:label>
+                    {{ name }}
+                    <required-sign :name="$props.requiredIcon" v-if="rules.required && $props.isRequiredIcon" />
+                </template>
+                <template v-slot:append><slot name="append" /></template>
             </q-input>
         </vee-field>
     </div>

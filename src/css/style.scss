@@ -1,4 +1,10 @@
 @import url('https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css');
+@font-face {
+    font-family: 'LeferiPoint-BlackA';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/LeferiPoint-BlackA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 
 @each $kind in (p: 'padding', m: 'margin') {
     @each $pos in (a:'', t: '-top', r: '-right', b: '-bottom', l: '-left') {
