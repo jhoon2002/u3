@@ -25,9 +25,9 @@ const routes = [
                 children: [
                     {
                         path: '/task/basic',
-                        name: '기본 정보 등록',
+                        name: '사업 등록',
                         // icon: 'las la-pen',
-                        component: () => import('@/views/task/TaskBasicForm.vue'),
+                        component: () => import('@/views/task/TaskForm.vue'),
                     },
                     // {
                     //     path: '/task/researcher',

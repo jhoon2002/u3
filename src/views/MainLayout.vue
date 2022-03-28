@@ -21,7 +21,7 @@ export default {
 }
 </script>
 <template>
-    <q-layout view="hHh LpR lff" class="animate__animated animate__fadeIn animate__faster">
+    <q-layout view="lHh LpR lff" class="animate__animated animate__fadeIn animate__faster">
         <q-header bordered style="backdrop-filter: blur(1px); background-color: #0000001a">
             {{ name }}
             <q-toolbar>
@@ -53,16 +53,33 @@ export default {
         </q-header>
 
         <q-drawer :width="250" show-if-above v-model="leftDrawerOpen" side="left" bordered>
+            <div v-ripple:light-green-4 class="q-px-md q-pt-md q-pb-sm relative-position cursor-pointer">
+                <!--<q-icon name="las la-lightbulb" style="font-size: 3rem; top: 0.7rem" class="absolute text-grey" />-->
+                <div class="j-ml-1">
+                    <div
+                        style="font-family: LeferiPoint-BlackA; font-size: 0.7rem; padding-left: 0.2rem"
+                        class="text-grey-9 animate__animated animate__flipInX"
+                    >
+                        한국예술종합학교 산학협력단
+                    </div>
+                    <div
+                        style="font-family: LeferiPoint-BlackA; font-size: 1.7rem"
+                        class="text-cyan animate__animated animate__flipInX"
+                    >
+                        사업관리시스템
+                    </div>
+                </div>
+            </div>
             <global-nav :items="$router.options.routes.filter(item => item.path === '/')[0].children" />
         </q-drawer>
 
         <q-page-container>
-            <q-page class="q-pa-lg">
+            <q-page class="q-pa-lg bg-grey-3">
                 <router-view class="animate__animated animate__fadeIn animate__faster" />
             </q-page>
         </q-page-container>
 
-        <q-footer class="bg-transparent column items-center q-pa-md text-dark">
+        <q-footer class="bg-grey-4 column items-center q-pa-md text-dark">
             <span class="text-body1 q-mb-xs">한국예술종합학교 산학협력단</span>
             <span class="text-caption q-mb-xs">K-Arts Industry Academy Cooperation Foundation</span>
             <span class="text-caption">
