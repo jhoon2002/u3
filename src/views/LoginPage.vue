@@ -3,7 +3,7 @@ import { Form as VeeForm } from 'vee-validate'
 import TextInput from '@/components/form/TextInput.vue'
 import http from '@/api/http.js'
 import { useQuasar } from 'quasar'
-import { useRouter, useRoute } from 'vue-router'
+import { useRouter } from 'vue-router'
 import { ref } from 'vue'
 
 export default {
@@ -34,7 +34,6 @@ export default {
                 })
                 return setTimeout(() => router.push('/'), 500)
             } catch (e) {
-                // console.log(e)
                 const { status } = e.response
                 if (status === 400) {
                     return $q.notify({
