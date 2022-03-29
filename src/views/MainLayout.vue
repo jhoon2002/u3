@@ -1,7 +1,8 @@
 <script>
-import { ref } from 'vue'
+import { reactive, ref } from 'vue'
 import GlobalNav from '@/components/global-nav/GlobalNav.vue'
 // import { useQuasar } from 'quasar'
+import http from '@/api/http.js'
 export default {
     components: { GlobalNav },
     setup() {
@@ -10,12 +11,33 @@ export default {
 
         const name = ref(import.meta.env.VITE_NAME)
 
+        const weatherData = reactive({})
+
+        const getWeather = async () => {
+            weatherData.value = await http.get(
+                'https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst',
+                {
+                    serviceKey:
+                        '4As68KQ2DmnVzFzetnJTngZrv8t4nHP7vl%2FUTMp2HotAwi2wNFgM0638N89OiFhFpyJppBX6w62%2BAaj24I4obQ%3D%3D',
+                    pageNo: 1,
+                    numOfRows: 1000,
+                    dataType: 'JSON',
+                    base_date: '20220329',
+                    base_time: '0600',
+                    nx: 55,
+                    ny: 127,
+                },
+            )
+        }
+
         return {
             leftDrawerOpen,
             toggleLeftDrawer() {
                 leftDrawerOpen.value = !leftDrawerOpen.value
             },
             name,
+            getWeather,
+            weatherData,
         }
     },
 }
@@ -35,6 +57,8 @@ export default {
                     </div>
                     <div class="flex">
                         <div class="j-mr-3">
+                            {{ weatherData }}
+                            <q-btn flat dense label="지금날씨" @click="getWeather" />
                             <q-btn flat dense label="마이페이지" />
                             <q-btn flat dense label="로그아웃" @click="$router.push('/login')" />
                         </div>
