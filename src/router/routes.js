@@ -12,7 +12,7 @@ const routes = [
         component: () => import('@/views/MainLayout.vue'),
         children: [
             {
-                path: '/main',
+                path: '',
                 name: 'Home',
                 icon: 'las la-campground',
                 component: () => import('@/views/TestPage.vue'),
@@ -35,12 +35,12 @@ const routes = [
                     //     icon: 'mdi-account-multiple',
                     //     component: () => import('@/components/PlainBlank.vue'),
                     // },
-                    {
-                        path: '/task/result',
-                        name: '산출물 등록',
-                        // icon: 'las la-sign-out-alt',
-                        component: () => import('@/views/task/ResultForm.vue'),
-                    },
+                    // {
+                    //     path: '/task/result',
+                    //     name: '산출물 등록',
+                    //     // icon: 'las la-sign-out-alt',
+                    //     component: () => import('@/views/task/ResultForm.vue'),
+                    // },
                     {
                         path: '/list',
                         name: '사업 목록',
@@ -70,10 +70,10 @@ const routes = [
                 ],
             },
             {
-                path: '/dev-list',
+                path: '/dep-list',
                 name: '개발 목록',
                 icon: 'las la-tasks',
-                component: () => import('@/views/DevList2.vue'),
+                component: () => import('@/views/DepList.vue'),
             },
             {
                 path: '/design',

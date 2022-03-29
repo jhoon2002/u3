@@ -59,32 +59,32 @@ export default {
 <template>
     <div
         style="height: 100vh"
-        class="flex justify-center items-center animate__animated animate__fadeIn animate__faster"
+        class="flex justify-center items-center animate__animated animate__fadeIn animate__faster back-gra"
     >
         <div>
             <div>
                 <div class="text-center">
                     <q-icon
-                        name="las la-lightbulb"
+                        name="bi-bar-chart-fill"
                         size="lg"
-                        color="grey-6"
+                        color="grey-9"
                         style="margin: 0 auto 0 auto"
                         class="animate__animated animate__animated animate__bounceInDown"
                     />
                 </div>
                 <div
                     style="font-size: 1.5rem"
-                    class="flex justify-center text-grey-6 text-center animate__animated animate__flipInX animate__slow"
+                    class="flex justify-center text-grey-6 q-mt-md text-center animate__animated animate__flipInX animate__slow"
                 >
-                    <div class="j-mr-2">한국예술종합학교</div>
-                    <div>산학협력단</div>
+                    <div style="font-family: LeferiPoint-BlackA, sans-serif" class="j-mr-2">한국예술종합학교</div>
+                    <div style="font-family: LeferiPoint-BlackA, sans-serif">산학협력단</div>
                 </div>
                 <div
-                    style="font-family: LeferiPoint-BlackA; text-align: center; font-size: 3.5rem"
+                    style="font-family: LeferiPoint-BlackA, sans-serif; text-align: center; font-size: 3.5rem"
                     class="flex justify-center j-mt-1 text-grey-7 animate__animated animate__flipInX"
                 >
-                    <div>사업관리</div>
-                    <div>시스템</div>
+                    <div class="text-cyan">사업관리</div>
+                    <div class="text-orange">시스템</div>
                 </div>
             </div>
             <div class="j-mt-15">
@@ -128,3 +128,30 @@ export default {
         </div>
     </div>
 </template>
+<style scoped>
+.back-gra {
+    /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#ffffff+0,e5e5e5+87,dbdbdb+100 */
+    background: rgb(255, 255, 255); /* Old browsers */
+    background: -moz-radial-gradient(
+        center,
+        ellipse cover,
+        rgba(255, 255, 255, 1) 0%,
+        rgba(229, 229, 229, 1) 87%,
+        rgba(219, 219, 219, 1) 100%
+    ); /* FF3.6-15 */
+    background: -webkit-radial-gradient(
+        center,
+        ellipse cover,
+        rgba(255, 255, 255, 1) 0%,
+        rgba(229, 229, 229, 1) 87%,
+        rgba(219, 219, 219, 1) 100%
+    ); /* Chrome10-25,Safari5.1-6 */
+    background: radial-gradient(
+        ellipse at center,
+        rgba(255, 255, 255, 1) 0%,
+        rgba(229, 229, 229, 1) 87%,
+        rgba(219, 219, 219, 1) 100%
+    ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#dbdbdb',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+</style>

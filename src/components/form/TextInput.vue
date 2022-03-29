@@ -15,6 +15,7 @@ export default {
         },
         outlined: {
             type: Boolean,
+            default: false,
         },
         standout: {
             type: Boolean,

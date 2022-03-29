@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <q-card flat class="j-content-q-card">
         <div class="text-h3 q-mb-lg">스타일 가이드</div>
         <div class="row justify-between">
             <div class="col">
@@ -53,7 +53,7 @@
                 </q-card>
             </div>
         </div>
-    </div>
+    </q-card>
 </template>
 
 <script setup>

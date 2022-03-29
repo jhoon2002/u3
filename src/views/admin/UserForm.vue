@@ -8,7 +8,7 @@ const submit = () => {
 const isPw = ref(true)
 </script>
 <template>
-    <div>
+    <q-card flat class="j-content-q-card">
         <vee-form v-slot="{ handleSubmit, resetForm }">
             <div class="text-h3 j-mb-15">
                 사람 등록
@@ -71,6 +71,6 @@ const isPw = ref(true)
                 <q-btn outline color="primary" label="저장" @click="handleSubmit(submit)" />
             </div>
         </vee-form>
-    </div>
+    </q-card>
 </template>
 <style scoped></style>

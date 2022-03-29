@@ -60,7 +60,7 @@ export default {
         >
             <div class="row q-gutter-lg">
                 <div class="col">
-                    <q-card flat class="q-pa-lg col">
+                    <q-card flat class="j-content-q-card col">
                         <!--
                         <div class="text-h3 j-mb-15">
                             사업 등록
@@ -103,7 +103,7 @@ export default {
                             />
                         </div>
                     </q-card>
-                    <q-card flat class="q-pa-lg q-mt-lg col">
+                    <q-card flat class="j-content-q-card q-mt-lg col">
                         <div class="text-h6">사업 성격</div>
                         <div class="row q-mt-lg">
                             <div class="col">
@@ -156,7 +156,7 @@ export default {
                             <div class="col" />
                         </div>
                     </q-card>
-                    <q-card flat class="q-pa-lg q-mt-lg col">
+                    <q-card flat class="j-content-q-card q-mt-lg col">
                         <div class="text-h6 q-mb-lg">사업비</div>
                         <div class="row q-gutter-md j-mt-0">
                             <number-input
@@ -189,7 +189,7 @@ export default {
                     </q-card>
                 </div>
                 <div class="col">
-                    <q-card flat class="q-pa-lg col">
+                    <q-card flat class="j-content-q-card col">
                         <div class="text-h6 q-mb-lg">사업 기간</div>
                         <date-input name="계약한날" outlined :rules="{ required: true, date: true }" class="col" />
                         <div class="row q-gutter-md j-mt-0">
@@ -222,7 +222,7 @@ export default {
                     </q-card>
 
                     <!--<pre>{{ values }}</pre>-->
-                    <q-card flat class="q-pa-lg col q-mt-lg">
+                    <q-card flat class="j-content-q-card col q-mt-lg">
                         <div class="text-h6">산출물</div>
                         <div class="row q-gutter-md q-mt-lg">
                             <div class="col">
