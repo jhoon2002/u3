@@ -1,34 +1,23 @@
 <script>
-import { reactive, ref } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 import GlobalNav from '@/components/global-nav/GlobalNav.vue'
 // import { useQuasar } from 'quasar'
 import http from '@/api/http.js'
 export default {
     components: { GlobalNav },
     setup() {
+        const weatherData = ref([])
+
+        onMounted(async () => {
+            const ret = await http.get('/api/weather')
+            weatherData.value = ret.data.data.body.items.item.filter(item => item.category === 'SKY')[0]
+            console.log(weatherData.value)
+        })
+
         const leftDrawerOpen = ref(false)
         // const $q = useQuasar()
 
         const name = ref(import.meta.env.VITE_NAME)
-
-        const weatherData = reactive({})
-
-        const getWeather = async () => {
-            weatherData.value = await http.get(
-                'https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst',
-                {
-                    serviceKey:
-                        '4As68KQ2DmnVzFzetnJTngZrv8t4nHP7vl%2FUTMp2HotAwi2wNFgM0638N89OiFhFpyJppBX6w62%2BAaj24I4obQ%3D%3D',
-                    pageNo: 1,
-                    numOfRows: 1000,
-                    dataType: 'JSON',
-                    base_date: '20220329',
-                    base_time: '0600',
-                    nx: 55,
-                    ny: 127,
-                },
-            )
-        }
 
         return {
             leftDrawerOpen,
@@ -36,7 +25,6 @@ export default {
                 leftDrawerOpen.value = !leftDrawerOpen.value
             },
             name,
-            getWeather,
             weatherData,
         }
     },
@@ -57,8 +45,6 @@ export default {
                     </div>
                     <div class="flex">
                         <div class="j-mr-3">
-                            {{ weatherData }}
-                            <q-btn flat dense label="지금날씨" @click="getWeather" />
                             <q-btn flat dense label="마이페이지" />
                             <q-btn flat dense label="로그아웃" @click="$router.push('/login')" />
                         </div>
@@ -77,6 +63,19 @@ export default {
         </q-header>
 
         <q-drawer :width="250" show-if-above v-model="leftDrawerOpen" side="left" bordered>
+            <q-icon
+                :name="
+                    weatherData.fcstValue <= 5
+                        ? 'bi-sun'
+                        : weatherData.fcstValue <= 8
+                        ? 'bi-cloud'
+                        : weatherData.fcstValue <= 10
+                        ? 'bi-clouds'
+                        : ''
+                "
+                style="font-size: 7rem; position: absolute; left: 50px; top: 400px"
+                color="grey-3"
+            />
             <div
                 v-ripple:grey-7
                 class="q-px-md q-pt-md q-pb-sm relative-position cursor-pointer"
