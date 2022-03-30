@@ -22,10 +22,10 @@ export default {
                     pageNo: 1,
                     numOfRows: 1000,
                     dataType: 'JSON',
-                    base_date: '20220329',
-                    base_time: '0600',
-                    nx: 55,
-                    ny: 127,
+                    base_date: '20220330',
+                    base_time: '1700',
+                    nx: 61,
+                    ny: 128,
                 },
             )
         }
