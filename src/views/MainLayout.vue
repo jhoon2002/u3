@@ -1,23 +1,52 @@
 <script>
-import { onMounted, reactive, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import GlobalNav from '@/components/global-nav/GlobalNav.vue'
 // import { useQuasar } from 'quasar'
 import http from '@/api/http.js'
 export default {
     components: { GlobalNav },
     setup() {
-        const weatherData = ref([])
+        // const weather = ref([])
+        // const cloudyIcon = computed({
+        //     get: () => {},
+        // })
 
-        onMounted(async () => {
-            const ret = await http.get('/api/weather')
-            weatherData.value = ret.data.data.body.items.item.filter(item => item.category === 'SKY')[0]
-            console.log(weatherData.value)
-        })
+        //TODO: 날씨 개발 중단... 만약 향후, 아래 코드를 이용한다면 ret에서 item.baseDate === now 이 조건에 추가하여
+        // item.baseTime === nowTIme 를 검사한 결과만 취합하는 것으로 보완해야한다.
+        // onMounted(async () => {
+        //     const now = new Date().toISOString().split('T')[0].replaceAll(/-/g, '')
+        //     const ret = await http.get('/api/weather')
+        //     weather.value = ret.data.data.body.items.item
+        //         .filter(item => item.baseDate === now && (item.category === 'SKY' || item.category === 'TMP'))
+        //         .map(item => ({
+        //             category: item.category,
+        //             value: item.fcstValue,
+        //         }))
+        // })
+
+        // console.log(weather)
 
         const leftDrawerOpen = ref(false)
         // const $q = useQuasar()
 
         const name = ref(import.meta.env.VITE_NAME)
+
+        const hlogin = async () => {
+            // console.log('hlogin....')
+
+            //curl -X POST https://api.hiworks.com/office/sso/validate/tmpkey -H "Authorization: Bearer f75e862f18fdb8f071a36c9ff9010b72" -H "Content-Type: application/json"
+            const ret = await http.post(
+                '/hiworks/office/sso/validate/tmpkey',
+                {},
+                {
+                    headers: {
+                        authorization: 'Bearer f75e862f18fdb8f071a36c9ff9010b72', //Zjc1ZTg2MmYxOGZkYjhmMDcxYTM2YzlmZjkwMTBiNzI=
+                        'Content-Type': 'application/json',
+                    },
+                },
+            )
+            console.log('ret', ret)
+        }
 
         return {
             leftDrawerOpen,
@@ -25,7 +54,7 @@ export default {
                 leftDrawerOpen.value = !leftDrawerOpen.value
             },
             name,
-            weatherData,
+            hlogin,
         }
     },
 }
@@ -45,6 +74,7 @@ export default {
                     </div>
                     <div class="flex">
                         <div class="j-mr-3">
+                            <q-btn flat dense label="하이웍스 로그인" @click="hlogin" />
                             <q-btn flat dense label="마이페이지" />
                             <q-btn flat dense label="로그아웃" @click="$router.push('/login')" />
                         </div>
@@ -63,19 +93,7 @@ export default {
         </q-header>
 
         <q-drawer :width="250" show-if-above v-model="leftDrawerOpen" side="left" bordered>
-            <q-icon
-                :name="
-                    weatherData.fcstValue <= 5
-                        ? 'bi-sun'
-                        : weatherData.fcstValue <= 8
-                        ? 'bi-cloud'
-                        : weatherData.fcstValue <= 10
-                        ? 'bi-clouds'
-                        : ''
-                "
-                style="font-size: 7rem; position: absolute; left: 50px; top: 400px"
-                color="grey-3"
-            />
+            <q-icon style="font-size: 7rem; position: absolute; left: -40px; top: 500px" color="grey-3" />
             <div
                 v-ripple:grey-7
                 class="q-px-md q-pt-md q-pb-sm relative-position cursor-pointer"

@@ -22,15 +22,25 @@ export default defineConfig({
     server: {
         port: 8080,
         proxy: {
-            '/dev': {
+            '/dev/api': {
                 target: 'http://localhost:3000',
                 changeOrigin: true,
-                rewrite: path => path.replace(/^\/dev/, ''),
+                rewrite: path => path.replace(/^\/dev\/api/, '/api'),
             },
-            '/pro': {
+            '/pro/api': {
                 target: 'http://localhost:8080',
                 changeOrigin: true,
-                rewrite: path => path.replace(/^\/pro/, ''),
+                rewrite: path => path.replace(/^\/pro\/api/, '/api'),
+            },
+            '/dev/hiworks': {
+                target: 'https://api.hiworks.com',
+                changeOrigin: true,
+                rewrite: path => path.replace(/^\/dev\/hiworks/, ''),
+            },
+            '/pro/hiworks': {
+                target: 'https://api.hiworks.com',
+                changeOrigin: true,
+                rewrite: path => path.replace(/^\/pro\/hiworks/, ''),
             },
         },
     },
