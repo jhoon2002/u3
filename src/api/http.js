@@ -2,11 +2,13 @@ import axios from 'axios'
 
 const instance = axios.create({
     // baseURL: process.env.VUE_APP_WAS,
-    baseURL: import.meta.env.VITE_VUE_APP_WAS,
+    // baseURL: import.meta.env.VITE_VUE_APP_WAS,
 })
 
 instance.interceptors.request.use(
     config => {
+        console.log('config.headers', config)
+
         return config
     },
     function (error) {

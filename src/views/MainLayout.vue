@@ -36,11 +36,11 @@ export default {
 
             //curl -X POST https://api.hiworks.com/office/sso/validate/tmpkey -H "Authorization: Bearer f75e862f18fdb8f071a36c9ff9010b72" -H "Content-Type: application/json"
             const ret = await http.post(
-                '/hiworks/office/sso/validate/tmpkey',
+                'https://api.hiworks.com/office/sso/validate/tmpkey',
                 {},
                 {
                     headers: {
-                        authorization: 'Bearer f75e862f18fdb8f071a36c9ff9010b72', //Zjc1ZTg2MmYxOGZkYjhmMDcxYTM2YzlmZjkwMTBiNzI=
+                        Authorization: 'Bearer f75e862f18fdb8f071a36c9ff9010b72', //Zjc1ZTg2MmYxOGZkYjhmMDcxYTM2YzlmZjkwMTBiNzI=
                         'Content-Type': 'application/json',
                     },
                 },
