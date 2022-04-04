@@ -44,7 +44,7 @@ export default defineConfig({
             },
         },
     },
-    // build: {
-    //     outDir: '../afar-backend/public',
-    // },
+    build: {
+        outDir: './public_html',
+    },
 })
