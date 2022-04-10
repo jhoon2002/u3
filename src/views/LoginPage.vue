@@ -34,8 +34,9 @@ export default {
                 })
                 return setTimeout(() => router.push('/'), 500)
             } catch (e) {
-                const { status } = e.response
-                if (status === 400) {
+                // const { status } = e.response //express
+                const { statusCode } = e.response.data
+                if (statusCode === 401) {
                     return $q.notify({
                         message: '아이디 또는 암호가 일치하지 않습니다.',
                         color: 'negative',

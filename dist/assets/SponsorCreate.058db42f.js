@@ -1,0 +1,1 @@
+import{Q as t}from"./QCard.81347784.js";import{_ as r}from"./index.db228bf9.js";import{c as e,x as o,o as a,a5 as c}from"./vendor.4cb171fe.js";import"./use-dark.623bc183.js";const s={},n=c(" \uB0B4\uC6A9 \uBE14\uB77C\uBE14\uB77C.. ");function _(f,d){return a(),e(t,{flat:"",class:"j-content-q-card"},{default:o(()=>[n]),_:1})}var x=r(s,[["render",_]]);export{x as default};
