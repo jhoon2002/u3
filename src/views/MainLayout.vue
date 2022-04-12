@@ -1,8 +1,9 @@
 <script>
-import { computed, onMounted, ref } from 'vue'
+import { ref } from 'vue'
 import GlobalNav from '@/components/global-nav/GlobalNav.vue'
 // import { useQuasar } from 'quasar'
 import http from '@/api/http.js'
+
 export default {
     components: { GlobalNav },
     setup() {
@@ -94,6 +95,7 @@ export default {
 
         <q-drawer :width="250" show-if-above v-model="leftDrawerOpen" side="left" bordered>
             <q-icon style="font-size: 7rem; position: absolute; left: -40px; top: 500px" color="grey-3" />
+            <!-- 사업관리시스템
             <div
                 v-ripple:grey-7
                 class="q-px-md q-pt-md q-pb-sm relative-position cursor-pointer"
@@ -122,6 +124,41 @@ export default {
                         class="animate__animated animate__flipInX"
                     >
                         <span class="text-cyan">사업관리</span>
+                        <span class="text-orange">시스템</span>
+                    </div>
+                </div>
+            </div>
+            -->
+            <div
+                v-ripple:grey-7
+                class="q-px-md q-pt-md q-pb-sm relative-position cursor-pointer"
+                @click="$router.push('/')"
+            >
+                <q-icon
+                    name="bi-bar-chart-fill"
+                    color="grey-9"
+                    style="font-size: 0.9rem; top: 1rem; left: 12.6rem"
+                    class="absolute text-grey animate__animated animate__animated animate__bounceInDown"
+                />
+                <div class="j-ml-1">
+                    <div
+                        style="
+                            font-family: LeferiPoint-BlackA, sans-serif;
+                            font-size: 0.85rem;
+                            padding-left: 0.1rem;
+                            animation-delay: 0.2s;
+                        "
+                        class="text-grey-7 animate__animated animate__flipInX"
+                    >
+                        한국예술종합학교 산학협력단
+                    </div>
+                    <div
+                        style="font-family: LeferiPoint-BlackA, sans-serif; font-size: 1.4rem; animation-delay: 0.2s"
+                        class="animate__animated animate__flipInX"
+                    >
+                        <span class="text-cyan">사업</span>
+                        <span class="text-green-3">자료</span>
+                        <span class="text-cyan">관리</span>
                         <span class="text-orange">시스템</span>
                     </div>
                 </div>
