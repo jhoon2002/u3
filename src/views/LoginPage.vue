@@ -78,7 +78,6 @@ export default {
             signUp,
             agree,
             slide: ref('style'),
-            lorem: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Itaque voluptatem totam, architecto cupiditate officia rerum, error dignissimos praesentium libero ab nemo.',
         }
     },
 }
@@ -154,16 +153,47 @@ export default {
                     </div>
                     <div class="flex justify-center">
                         <q-dialog v-model="signUp">
-                            <q-card style="width: 600px" class="q-px-md q-pb-md">
+                            <q-card style="width: 600px">
+                                <q-card-section class="row q-pt-lg q-px-lg j-pb-0">
+                                    <div class="text-h4">사용자 등록</div>
+                                    <q-space />
+                                    <div class="row justify-center">
+                                        <!--
+                                        <q-btn-toggle
+                                            flat
+                                            v-model="slide"
+                                            :options="[
+                                                { value: 'style', slot: 'style' },
+                                                { value: 'tv', slot: 'tv' },
+                                                { value: 'layers', slot: 'layers' },
+                                            ]"
+                                        >
+                                            <template v-slot:style>
+                                                <q-icon name="looks_one" />
+                                            </template>
+                                            <template v-slot:tv>
+                                                <q-icon name="looks_two" />
+                                            </template>
+                                            <template v-slot:layers>
+                                                <q-icon name="looks_3" />
+                                            </template>
+                                        </q-btn-toggle>
+                                        -->
+                                        {{ $refs.carousel.modelValue }}
+                                        <q-btn flat fab-mini icon="looks_one" />
+                                        <q-btn flat fab-mini icon="looks_two" />
+                                        <q-btn flat fab-mini icon="looks_3" />
+                                    </div>
+                                </q-card-section>
                                 <q-carousel
                                     v-model="slide"
                                     swipeable
                                     animated
                                     navigation-position="top"
                                     control-color="primary"
-                                    navigation
                                     padding
-                                    height="600px"
+                                    height="580px"
+                                    ref="carousel"
                                 >
                                     <q-carousel-slide name="style">
                                         <q-card-section class="q-pl-lg">
@@ -288,7 +318,7 @@ export default {
                                             </div>
                                         </q-card-section>
                                         <q-card-actions align="right" class="text-primary">
-                                            <q-btn outline label="다음 단계" v-close-popup />
+                                            <q-btn outline label="다음 단계" @click="$refs.carousel.next()" />
                                         </q-card-actions>
                                     </q-carousel-slide>
                                     <q-carousel-slide name="tv" style="width: 500px">2 </q-carousel-slide>
