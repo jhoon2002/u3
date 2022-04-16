@@ -46,9 +46,9 @@ const getData = async (val, loading) => {
         loading(true)
         const {
             data: { users },
-        } = await http.get('/api/users/userid-name/' + val)
+        } = await http.get('/api/users/loginid-name/' + val)
         options.value = users.map(item => ({
-            value: item.userid,
+            value: item.loginid,
             label: `${item.name}(${item.birthday})`,
         }))
         console.log(options.value)

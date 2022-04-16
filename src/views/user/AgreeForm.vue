@@ -1,44 +1,52 @@
 <script setup>
-import { Form as VeeForm, Field as VeeField } from 'vee-validate'
+import { ref } from 'vue'
+import { Form as VeeForm, Field as VeeField, useField, useForm } from 'vee-validate'
+const all = ref(false)
+useForm({
+    initialValues: {
+        term: false,
+        info: false,
+        jumin: false,
+    },
+})
+const { value: term, handleChange: handleChangeTerm } = useField('term', { required: true })
+const { value: info, handleChange: handleChangeInfo } = useField('info', { required: true })
+const { value: jumin, handleChange: handleChangeJumin } = useField('jumin', { required: true })
+
+const changeAll = e => {
+    handleChangeTerm(e, true)
+    handleChangeInfo(e, true)
+    handleChangeJumin(e, true)
+}
 </script>
 <template>
-    <vee-form
-        v-slot="{ handleSubmit, errors, values }"
-        :initial-values="{
-            agreeTerm: false,
-            agreeInfo: false,
-            agreeJumin: false,
-        }"
-    >
-        {{ values }}
+    <vee-form v-slot="{ handleSubmit, errors }">
         <q-card-section class="q-pl-lg">
             <div class="row q-mt-md">
-                <div class="text-h6 j-pt-1">전체 동의</div>
                 <q-space />
-                <q-toggle v-model="agreeAll">
-                    <template v-slot:default>
-                        <span :class="agreeAll ? 'text-grey-9' : 'text-grey-5'"> 동의합니다 </span>
-                    </template>
+                <q-toggle v-model="all" @update:model-value="changeAll">
+                    <template v-slot:default> <span class="text-h6">전체 동의</span> </template>
                 </q-toggle>
             </div>
             <div class="row q-mt-sm">
-                <div class="text-h6 j-pt-1">
+                <div class="text-h6 j-pt-2">
                     약관 동의
                     <q-badge align="top" color="orange" class="q-pb-xs"> 필수 </q-badge>
                 </div>
                 <q-space />
-
-                <vee-field name="agreeTerm" :rules="{ required: true }" v-slot="{ field, handleChange, errors }">
-                    <q-toggle
-                        :model-value="field.value"
-                        :color="errors.length > 0 ? 'negative' : null"
-                        :keep-color="errors.length > 0"
-                        @update:model-value="handleChange($event)"
+                <vee-field name="term" v-model="term" :rules="{ required: true }" v-slot="{ errorMessage }">
+                    <q-field
+                        borderless
+                        hide-bottom-space
+                        dense
+                        no-error-icon
+                        :error="!!errorMessage"
+                        :color="term ? 'primary' : 'grey-6'"
                     >
-                        <template v-slot:default>
-                            <span :class="field.value ? 'text-grey-9' : 'text-grey-5'"> 동의합니다 </span>
-                        </template>
-                    </q-toggle>
+                        <q-toggle v-model="term">
+                            <template v-slot:default> <span class="text-body1">동의합니다</span> </template>
+                        </q-toggle>
+                    </q-field>
                 </vee-field>
             </div>
             <div class="row">
@@ -85,17 +93,19 @@ import { Form as VeeForm, Field as VeeField } from 'vee-validate'
                     <q-badge align="top" color="orange" class="q-pb-xs">필수</q-badge>
                 </div>
                 <q-space />
-                <vee-field name="agreeInfo" :rules="{ required: true }" v-slot="{ field, handleChange, errors }">
-                    <q-toggle
-                        :model-value="field.value"
-                        :color="errors.length > 0 ? 'negative' : null"
-                        :keep-color="errors.length > 0"
-                        @update:model-value="handleChange($event)"
+                <vee-field name="info" v-model="info" :rules="{ required: true }" v-slot="{ errorMessage }">
+                    <q-field
+                        borderless
+                        hide-bottom-space
+                        dense
+                        no-error-icon
+                        :error="!!errorMessage"
+                        :color="info ? 'primary' : 'grey-6'"
                     >
-                        <template v-slot:default>
-                            <span :class="field.value ? 'text-grey-9' : 'text-grey-5'"> 동의합니다 </span>
-                        </template>
-                    </q-toggle>
+                        <q-toggle v-model="info">
+                            <template v-slot:default> <span class="text-body1">동의합니다</span> </template>
+                        </q-toggle>
+                    </q-field>
                 </vee-field>
             </div>
             <div class="row q-mt-sm">
@@ -104,23 +114,49 @@ import { Form as VeeForm, Field as VeeField } from 'vee-validate'
                     <q-badge align="top" color="orange" class="q-pb-xs"> 필수 </q-badge>
                 </div>
                 <q-space />
-                <vee-field name="agreeJumin" :rules="{ required: true }" v-slot="{ field, handleChange, errors }">
-                    <q-toggle
-                        :model-value="field.value"
-                        :color="errors.length > 0 ? 'negative' : null"
-                        :keep-color="errors.length > 0"
-                        @update:model-value="handleChange($event)"
+                <vee-field name="jumin" v-model="jumin" :rules="{ required: true }" v-slot="{ errorMessage }">
+                    <q-field
+                        borderless
+                        hide-bottom-space
+                        dense
+                        no-error-icon
+                        :error="!!errorMessage"
+                        :color="jumin ? 'primary' : 'grey-6'"
                     >
-                        <template v-slot:default>
-                            <span :class="field.value ? 'text-grey-9' : 'text-grey-5'"> 동의합니다 </span>
-                        </template>
-                    </q-toggle>
+                        <q-toggle v-model="jumin">
+                            <template v-slot:default> <span class="text-body1">동의합니다</span> </template>
+                        </q-toggle>
+                    </q-field>
                 </vee-field>
             </div>
         </q-card-section>
-        <q-card-actions align="right" class="text-primary">
+        <q-card-actions align="right" class="q-mt-md">
             <q-btn outline label="창닫기" color="negative" @click="$emit('close')" />
-            <q-btn outline label="다음 단계" @click="handleSubmit(() => (!errors.length ? $emit('next') : null))" />
+            <q-btn
+                outline
+                label="다음 단계"
+                color="primary"
+                @click="handleSubmit(() => (!errors.length ? $emit('next') : null))"
+            />
         </q-card-actions>
     </vee-form>
 </template>
+<style lang="scss" scoped>
+.tremble {
+    animation-duration: 1s;
+    animation-timing-function: ease;
+    animation-delay: 0s;
+    animation-iteration-count: 1;
+    animation-direction: normal;
+    animation-fill-mode: none;
+    animation-play-state: running;
+    animation: q-field-label 0.36s;
+    color: $negative;
+}
+.error-message {
+    font-size: 12px;
+    line-height: 1;
+    color: $negative;
+    margin: 8px 0 0 12px;
+}
+</style>

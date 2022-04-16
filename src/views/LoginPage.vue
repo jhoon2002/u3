@@ -1,34 +1,25 @@
 <script>
-import { Form as VeeForm, Field as VeeField, useField } from 'vee-validate'
+import { Form as VeeForm } from 'vee-validate'
 import TextInput from '@/components/form/TextInput.vue'
 import http from '@/api/http.js'
 import { useQuasar } from 'quasar'
 import { useRouter } from 'vue-router'
-import { ref, watch } from 'vue'
-import SignUpForm from '@/components/user/SignUpForm.vue'
+import { reactive, ref } from 'vue'
+import AgreeForm from '@/views/user/AgreeForm.vue'
+import CheckJuminForm from '@/views/user/CheckJuminForm.vue'
+import UserForm from '@/views/user/UserForm.vue'
 
 export default {
     components: {
+        CheckJuminForm,
         VeeForm,
         TextInput,
-        SignUpForm,
+        AgreeForm,
+        UserForm,
     },
     setup() {
         const $q = useQuasar()
         const router = useRouter()
-        const isPwd = ref(true)
-        const signUp = ref(false)
-        const agreeAll = ref(false)
-        const { handleChange } = useField('agreeTerm')
-
-        watch(agreeAll, agreeAll => {
-            if (agreeAll) {
-                handleChange(true)
-            } else {
-                handleChange(false)
-            }
-        })
-
         const submit = async values => {
             const opt = {
                 position: 'top',
@@ -37,7 +28,7 @@ export default {
             }
             try {
                 await http.post('/api/users/login', {
-                    userid: values['아이디'],
+                    loginid: values['아이디'],
                     password: values['비밀번호'],
                 })
                 $q.notify({
@@ -64,14 +55,20 @@ export default {
             }
         }
         return {
-            isPwd,
+            isPwd: ref(true),
             submit,
-            signUp,
-            agreeAll,
+            signUp: ref(false),
+            agree: reactive({
+                all: null,
+                term: null,
+                info: null,
+                jumin: null,
+            }),
             slide: ref('agree'),
             submit2: () => {
                 console.log('~~fail~~')
             },
+            user: ref({}),
         }
     },
 }
@@ -153,27 +150,6 @@ export default {
                                 <div class="text-h4">사용자 등록</div>
                                 <q-space />
                                 <div class="row justify-center">
-                                    <!--
-                                        <q-btn-toggle
-                                            flat
-                                            v-model="slide"
-                                            :options="[
-                                                { value: 'style', slot: 'style' },
-                                                { value: 'tv', slot: 'tv' },
-                                                { value: 'layers', slot: 'layers' },
-                                            ]"
-                                        >
-                                            <template v-slot:style>
-                                                <q-icon name="looks_one" />
-                                            </template>
-                                            <template v-slot:tv>
-                                                <q-icon name="looks_two" />
-                                            </template>
-                                            <template v-slot:layers>
-                                                <q-icon name="looks_3" />
-                                            </template>
-                                        </q-btn-toggle>
-                                        -->
                                     <q-icon
                                         :name="
                                             slide === 'agree' ? 'mdi-numeric-1-circle' : 'mdi-numeric-1-circle-outline'
@@ -182,7 +158,8 @@ export default {
                                         color="grey-7"
                                         class="cursor-pointer"
                                         @click="$refs.carousel.goTo('agree')"
-                                    />
+                                    /><!--class="cursor-pointer"
+                                        @click="$refs.carousel.goTo('agree')"-->
                                     <q-icon
                                         :name="
                                             slide === 'check' ? 'mdi-numeric-2-circle' : 'mdi-numeric-2-circle-outline'
@@ -210,14 +187,26 @@ export default {
                                 navigation-position="top"
                                 control-color="primary"
                                 padding
-                                height="580px"
+                                height="500px"
                                 ref="carousel"
                             >
                                 <q-carousel-slide name="agree">
-                                    <sign-up-form @next="$refs.carousel.next()" @close="signUp = false" />
+                                    <agree-form @next="$refs.carousel.next()" @close="signUp = false" />
                                 </q-carousel-slide>
-                                <q-carousel-slide name="check" style="width: 500px">2 </q-carousel-slide>
-                                <q-carousel-slide name="form" style="width: 500px">33333 </q-carousel-slide>
+                                <q-carousel-slide name="check">
+                                    <check-jumin-form
+                                        @next="
+                                            e => {
+                                                user.value = e
+                                                $refs.carousel.next()
+                                            }
+                                        "
+                                        @close="signUp = false"
+                                    />
+                                </q-carousel-slide>
+                                <q-carousel-slide name="form">
+                                    <user-form :user="user" @close="signUp = false" />
+                                </q-carousel-slide>
                             </q-carousel>
                         </q-card>
                     </q-dialog>

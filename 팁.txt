@@ -150,14 +150,41 @@ computed 펑션: 읽기 전용 반응성 참조를 리턴(.value로 접근)
 ref, computed 사용 이유: 함수에서 반환될 때나 속성으로 할당될 때 반응성을 잃어버리기 때문에 래핑하고 해당 객체를 리턴
 
 -----------------------------
-reactive
-reactive는 객체와 배열, 셋(Set) 과 같은 형태의 데이터들을 담당한다.
-
 ref
-ref는 단순값(숫자, 문자열, 불린과 같은)을 담당한다.
+ref는 주로 단순값(숫자, 문자열, 불린과 같은)을 담당한다. 사실 객체, 배열을 넣어도 된다.
+(리터럴)
+const book = ref(null)
+book.value = 'aa' //value로 없데이트
+(객체)
+const book = ref({ a: 'aa', b: 'bb' })
+book.value.a = 'cc' //value를 사용해야 하므로, 뽀대가 안난다. 따라서 객체는 reactive를 쓰는게 낫다(reactive와 차이점 일듯)
+
+reactive
+reactive는 주로 객체와 배열, 셋(Set) 과 같은 형태의 데이터들을 담당한다.
+(객체)
+const book = reactive({ a: 'aa', b: 'bb' })
+book.a = 'cc'  //value 없이 바로 업데이트 가능
+
+ref 와 reactive 의 차이
+1. 둘다 모든 경우에 사용이 가능한데 다만, 객체나 배열은 .value 로 업데이트를 해야하는 ref() 보단 reactive()를 쓰는게 편리한 거 같음(개인 의견)
+2. 둘다 모든 경우에 사용이 가능한데 단지, 내부에 coumputed 를 사용할 수 있는지 여부라는 의견이 있음
+const a = ref({ a: 'aa', b: computed ... })  => 불가
+const a = reactive({ a: 'aa', b: computed ... })  => 가능
 
 toRefs
-toRefs는 Reactivity API로 감싸진 값들을 일반형태로 변환하기 위한 함수이다.
+toRefs는 Reactivity API로 감싸진 값들을 구조분해 할당 시, 반응형을 유지하면서 ref() 형태로 변환하게 해주는 함수
+예) const book = reactive({ a: b, c: d })
+    let { a, c } = book => 이러면 a, c는 반응형 유지 불가
+    let { a, c } = toRefs(book) => 이러면 a, c가 반응형 유지(즉, a, c는 ref() 로 만든 값과 동일)
+
+readonly
+원본은 변이 가능, 복사본은 readonly 즉, 변이 불가
+const original = reactive({ count: 0 })
+const copy = readonly(original) //orginal++ (가능), copy++ (불가)
+
+
+
+
 
 예)
     const count = ref(0) // 단순값인 ref를 사용했다

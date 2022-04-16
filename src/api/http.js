@@ -7,7 +7,7 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
     config => {
-        console.log('config.headers', config)
+        // console.log('config.headers', config)
 
         return config
     },

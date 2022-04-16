@@ -66,7 +66,7 @@ export const juminValidate = juminNo => {
     if (ssn2.match('[^0-9]')) return false
     if (ssn.length !== 13) return false
 
-    // 공식: M = (11 - ((2×A + 3×B + 4×C + 5×D + 6×E + 7×F + 8×G + 9×H + 2×I + 3×J + 4×K + 5×L) % 11)) % 11
+    // 공식: M = (11 - ( (2×A + 3×B + 4×C + 5×D + 6×E + 7×F + 8×G + 9×H + 2×I + 3×J + 4×K + 5×L) % 11) ) % 10
     for (let i = 0; i < 13; i++) {
         arr_ssn[i] = ssn.substring(i, i + 1)
     }
