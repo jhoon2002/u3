@@ -131,7 +131,6 @@ const changeAll = e => {
             </div>
         </q-card-section>
         <q-card-actions align="right" class="q-mt-md">
-            <q-btn outline label="창닫기" color="negative" @click="$emit('close')" />
             <q-btn
                 outline
                 label="다음 단계"

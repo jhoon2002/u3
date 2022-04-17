@@ -54,21 +54,30 @@ export default {
                 })
             }
         }
+        const user = ref(null)
+        const carousel = ref(null)
+        const signUp = ref(false)
         return {
-            isPwd: ref(true),
+            carousel,
             submit,
-            signUp: ref(false),
+            signUp,
+            user,
+            isPwd: ref(true),
+            slide: ref('agree'),
             agree: reactive({
                 all: null,
                 term: null,
                 info: null,
                 jumin: null,
             }),
-            slide: ref('agree'),
-            submit2: () => {
-                console.log('~~fail~~')
+            bindAndNext: e => {
+                user.value = e
+                carousel.value.next()
             },
-            user: ref({}),
+            closeAndGoTo: () => {
+                signUp.value = false
+                carousel.value.goTo('agree')
+            },
         }
     },
 }
@@ -146,18 +155,15 @@ export default {
                 <div class="flex justify-center">
                     <q-dialog no-esc-dismiss no-backdrop-dismiss v-model="signUp">
                         <q-card style="width: 600px">
-                            <q-card-section class="row q-pt-lg q-px-lg j-pb-0">
-                                <div class="text-h4">사용자 등록</div>
-                                <q-space />
-                                <div class="row justify-center">
+                            <q-card-section class="row q-pt-md q-px-lg j-pb-0">
+                                <div class="text-h4 q-mt-sm">사용자 등록</div>
+                                <div class="row q-ml-lg q-mt-md">
                                     <q-icon
                                         :name="
                                             slide === 'agree' ? 'mdi-numeric-1-circle' : 'mdi-numeric-1-circle-outline'
                                         "
                                         size="sm"
                                         color="grey-7"
-                                        class="cursor-pointer"
-                                        @click="$refs.carousel.goTo('agree')"
                                     /><!--class="cursor-pointer"
                                         @click="$refs.carousel.goTo('agree')"-->
                                     <q-icon
@@ -166,8 +172,6 @@ export default {
                                         "
                                         size="sm"
                                         color="grey-7"
-                                        class="cursor-pointer"
-                                        @click="$refs.carousel.goTo('check')"
                                     />
                                     <q-icon
                                         :name="
@@ -175,10 +179,10 @@ export default {
                                         "
                                         size="sm"
                                         color="grey-7"
-                                        class="cursor-pointer"
-                                        @click="$refs.carousel.goTo('form')"
                                     />
                                 </div>
+                                <q-space />
+                                <q-btn round flat icon="close" size="md" @click="closeAndGoTo" />
                             </q-card-section>
                             <q-carousel
                                 v-model="slide"
@@ -191,21 +195,13 @@ export default {
                                 ref="carousel"
                             >
                                 <q-carousel-slide name="agree">
-                                    <agree-form @next="$refs.carousel.next()" @close="signUp = false" />
+                                    <agree-form @next="$refs.carousel.next()" />
                                 </q-carousel-slide>
                                 <q-carousel-slide name="check">
-                                    <check-jumin-form
-                                        @next="
-                                            e => {
-                                                user.value = e
-                                                $refs.carousel.next()
-                                            }
-                                        "
-                                        @close="signUp = false"
-                                    />
+                                    <check-jumin-form @next="bindAndNext" @close="closeAndGoTo" />
                                 </q-carousel-slide>
                                 <q-carousel-slide name="form">
-                                    <user-form :user="user" @close="signUp = false" />
+                                    <user-form :user="user" />
                                 </q-carousel-slide>
                             </q-carousel>
                         </q-card>
