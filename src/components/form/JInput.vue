@@ -48,6 +48,10 @@ export default {
             type: String,
             default: 'las la-asterisk',
         },
+        disable: {
+            type: Boolean,
+            default: false,
+        },
     },
     setup(props, { emit }) {
         const { value } = useField(props.label)

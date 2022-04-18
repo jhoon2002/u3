@@ -8,6 +8,7 @@ const props = defineProps({
     user: Object,
 })
 const { user } = toRefs(props)
+console.log('user', user.value)
 const {
     handleSubmit,
     resetForm,
@@ -24,10 +25,9 @@ const {
 
 const { value: name, errorMessage: errorName } = useField('이름', { required: true, min: 2, max: 10 })
 const { value: loginid, errorMessage: errorLoginid } = useField('아이디', { required: true, id: true })
-const { value: password, errorMessage: errorPassword } = useField('비밀번호', { required: true, min: 3 })
+const { value: password, errorMessage: errorPassword } = useField('비밀번호', { password: true })
 const { value: passwordConfirm, errorMessage: errorPasswordConfirm } = useField('비밀번호 확인', {
-    required: true,
-    min: 3,
+    confirmed: '@비밀번호',
 })
 const { value: cellphone, errorMessage: errorCellphone } = useField('휴대폰', { required: true, cellphone: true })
 const { value: email, errorMessage: errorEmail } = useField('이메일', { required: true, email: true })
@@ -43,10 +43,17 @@ const isPwd2 = ref(true)
 </script>
 <template>
     <form @submit="onSubmit">
-        <q-card-section class="q-pa-lg">
+        <q-card-section class="q-pa-lg q-pt-xl scroll" style="max-height: 380px; min-height: 380px">
             <div class="row q-gutter-lg">
                 <j-input label="아이디" v-model="loginid" :error-message="errorLoginid" required-sign class="col" />
-                <j-input label="이름" v-model="name" :error-message="errorName" required-sign class="col" />
+                <j-input
+                    label="이름"
+                    v-model="name"
+                    :error-message="errorName"
+                    required-sign
+                    :disable="!!user"
+                    class="col"
+                />
             </div>
             <div class="row q-gutter-lg">
                 <j-input
@@ -76,6 +83,7 @@ const isPwd2 = ref(true)
                     class="col"
                 >
                     <template v-slot:append>
+                        <!--'bi-eye-slash' : 'bi-eye'-->
                         <q-icon
                             :name="isPwd2 ? 'bi-eye-slash' : 'bi-eye'"
                             class="cursor-pointer"
@@ -131,9 +139,9 @@ const isPwd2 = ref(true)
                 </q-select>
             </div>
         </q-card-section>
-        <q-card-actions align="right">
+        <q-card-actions align="center">
             <q-btn outline label="초기화" color="negative" @click="resetForm" />
-            <q-btn type="submit" outline label="확인" color="primary" />
+            <q-btn type="submit" outline label="확인" color="primary" style="width: 80px" />
         </q-card-actions>
     </form>
 </template>

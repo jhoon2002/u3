@@ -34,23 +34,21 @@ const submit = async values => {
 const onSubmit = handleSubmit(submit)
 </script>
 <template>
-    <div>
-        <q-card-section class="q-pa-lg">
+    <form @submit="onSubmit">
+        <q-card-section class="q-pt-lg q-pl-lg q-pr-lg q-pb-xs">
             <div class="text-h6 q-mt-md q-mb-lg">등록 확인</div>
-            <form @submit="onSubmit">
-                <j-input
-                    label="주민등록번호"
-                    v-model="jumin"
-                    :error-message="errorMessage"
-                    input-style="letter-spacing: 2px; font-size: 1.1rem"
-                    @input="hasId = false"
-                />
-                <div class="row justify-center">
-                    <q-btn outline label="다음 단계" color="primary" type="submit" class="q-mt-sm" />
-                </div>
-            </form>
+            <j-input
+                label="주민등록번호"
+                v-model="jumin"
+                :error-message="errorMessage"
+                input-style="letter-spacing: 2px; font-size: 1.1rem"
+                @input="hasId = false"
+            />
         </q-card-section>
-        <q-card-section style="height: 165px">
+        <q-card-actions align="center">
+            <q-btn outline label="다음 단계" color="primary" type="submit" />
+        </q-card-actions>
+        <q-card-section class="q-mt-md">
             <div v-if="hasId" class="animate__animated animate__shakeX animate__fast">
                 <div class="text-center text-h5 text-red">"이미 등록한 사용자 입니다."</div>
                 <div class="text-center text-body2 q-mt-md">
@@ -62,5 +60,5 @@ const onSubmit = handleSubmit(submit)
                 </div>
             </div>
         </q-card-section>
-    </div>
+    </form>
 </template>

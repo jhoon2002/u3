@@ -21,8 +21,8 @@ const changeAll = e => {
 </script>
 <template>
     <vee-form v-slot="{ handleSubmit, errors }">
-        <q-card-section class="q-pl-lg">
-            <div class="row q-mt-md">
+        <q-card-section class="q-pl-lg scroll" style="max-height: 403px; min-height: 403px">
+            <div class="row">
                 <q-space />
                 <q-toggle v-model="all" @update:model-value="changeAll">
                     <template v-slot:default> <span class="text-h6">전체 동의</span> </template>
@@ -130,7 +130,7 @@ const changeAll = e => {
                 </vee-field>
             </div>
         </q-card-section>
-        <q-card-actions align="right" class="q-mt-md">
+        <q-card-actions align="center">
             <q-btn
                 outline
                 label="다음 단계"

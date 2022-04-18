@@ -155,7 +155,7 @@ export default {
                 <div class="flex justify-center">
                     <q-dialog no-esc-dismiss no-backdrop-dismiss v-model="signUp">
                         <q-card style="width: 600px">
-                            <q-card-section class="row q-pt-md q-px-lg j-pb-0">
+                            <q-card-section class="row q-pt-md q-px-lg j-pb-0 q-mb-lg">
                                 <div class="text-h4 q-mt-sm">사용자 등록</div>
                                 <div class="row q-ml-lg q-mt-md">
                                     <q-icon
@@ -186,8 +186,9 @@ export default {
                             </q-card-section>
                             <q-carousel
                                 v-model="slide"
-                                swipeable
                                 animated
+                                transition-prev="slide-right"
+                                transition-next="slide-left"
                                 navigation-position="top"
                                 control-color="primary"
                                 padding
