@@ -19,6 +19,7 @@ const submit = async values => {
         const { data: dbUser } = await http.post('api/users/user/jumin', {
             jumin: values['주민등록번호'],
         })
+        console.log('dbUser', dbUser)
         if (dbUser.loginid) {
             hasId.value = true
             return
