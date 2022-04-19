@@ -55,6 +55,7 @@ export default {
             }
         }
         const user = ref(null)
+        const jumin = ref(null)
         const carousel = ref(null)
         const signUp = ref(false)
         return {
@@ -62,6 +63,7 @@ export default {
             submit,
             signUp,
             user,
+            jumin,
             isPwd: ref(true),
             slide: ref('agree'),
             agree: reactive({
@@ -71,7 +73,8 @@ export default {
                 jumin: null,
             }),
             bindAndNext: e => {
-                user.value = e
+                user.value = e.user
+                jumin.value = e.jumin
                 carousel.value.next()
             },
             closeAndGoTo: () => {
@@ -202,7 +205,7 @@ export default {
                                     <check-jumin-form @next="bindAndNext" @close="closeAndGoTo" />
                                 </q-carousel-slide>
                                 <q-carousel-slide name="form">
-                                    <user-form :user="user" />
+                                    <user-form :user="user" :jumin="jumin" @close="closeAndGoTo" />
                                 </q-carousel-slide>
                             </q-carousel>
                         </q-card>

@@ -3,28 +3,37 @@ import { defineProps, ref, toRefs } from 'vue'
 import { useField, useForm } from 'vee-validate'
 import JInput from '@/components/form/JInput.vue'
 import RequiredSign from '@/components/form/RequiredSign.vue'
+import http from '@/api/http.js'
+import { useQuasar } from 'quasar'
 
+const $q = useQuasar()
 const props = defineProps({
     user: Object,
+    jumin: String,
 })
-const { user } = toRefs(props)
-console.log('user', user.value)
+const emit = defineEmits(['close'])
+const { user: preUser } = toRefs(props)
+
 const {
     handleSubmit,
     resetForm,
     values: allValues,
 } = useForm({
     initialValues: {
-        이름: user.value ? user.value.name : '',
-        휴대폰: user.value ? user.value.cellphone : '',
-        이메일: user.value ? user.value.email : '',
-        신분: user.value ? user.value.kind : '교원(전임)',
-        소속: user.value ? user.value.belong : '음악원',
+        이름: preUser.value ? preUser.value.name : '',
+        휴대폰: preUser.value ? preUser.value.cellphone : '',
+        이메일: preUser.value ? preUser.value.email : '',
+        신분: preUser.value ? preUser.value.kind : '교원(전임)',
+        소속: preUser.value ? preUser.value.belong : '음악원',
     },
 })
 
 const { value: name, errorMessage: errorName } = useField('이름', { required: true, min: 2, max: 10 })
-const { value: loginid, errorMessage: errorLoginid } = useField('아이디', { required: true, id: true })
+const { value: loginid, errorMessage: errorLoginid } = useField('아이디', {
+    required: true,
+    id: true,
+    loginidDuplicated: true,
+})
 const { value: password, errorMessage: errorPassword } = useField('비밀번호', { password: true })
 const { value: passwordConfirm, errorMessage: errorPasswordConfirm } = useField('비밀번호 확인', {
     confirmed: '@비밀번호',
@@ -34,8 +43,33 @@ const { value: email, errorMessage: errorEmail } = useField('이메일', { requi
 const { value: identity, errorMessage: errorIdentity } = useField('신분', { required: true })
 const { value: belong, errorMessage: errorBelong } = useField('소속', { required: true })
 
-const onSubmit = handleSubmit(values => {
-    console.log('~~submit~~~values:', values)
+const onSubmit = handleSubmit(async values => {
+    values.juminRaw = props.jumin
+    if (preUser) {
+        values.userid = preUser.userid
+    }
+    const opt = {
+        position: 'top',
+        timeout: 1000,
+        icon: 'bi-bell-fill',
+    }
+    try {
+        const { data } = await http.post('/api/users/user', values)
+        $q.notify({
+            message: '등록하였습니다.',
+            color: 'primary',
+            ...opt,
+        })
+        emit('close')
+        return
+    } catch (e) {
+        // console.log(e)
+        return $q.notify({
+            message: '등록하지 못했습니다. 관리자에게 문의하여 주시기 바랍니다.',
+            color: 'negative',
+            ...opt,
+        })
+    }
 })
 
 const isPwd = ref(true)

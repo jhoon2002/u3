@@ -11,12 +11,12 @@ const hasId = ref(false)
 
 const emit = defineEmits(['next'])
 
-const { handleSubmit, values } = useForm()
+const { handleSubmit, values } = useForm({ initialValues: { 주민등록번호: '7301261018122' } })
 const { value: jumin, errorMessage } = useField('주민등록번호', { required: true, jumin: true, juminSingle: true })
 
 const submit = async values => {
     try {
-        const { data: dbUser } = await http.post('api/users/user', {
+        const { data: dbUser } = await http.post('api/users/user/jumin', {
             jumin: values['주민등록번호'],
         })
         if (dbUser.loginid) {
@@ -24,10 +24,10 @@ const submit = async values => {
             return
         }
         // user.value = dbUser
-        emit('next', dbUser)
+        emit('next', { user: dbUser, jumin: values['주민등록번호'] })
     } catch (e) {
         // user.value = null
-        emit('next', null)
+        emit('next', { user: null, jumin: values['주민등록번호'] })
     }
 }
 

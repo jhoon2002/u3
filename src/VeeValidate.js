@@ -77,14 +77,17 @@ defineRule('password', value => {
 })
 defineRule('loginidDuplicated', async value => {
     try {
-        //같은 아이디 있으면 200 응답
+        //같은 아이디 없으면 통과
         await http.get('/api/users/loginid/' + value)
-        return '사용 중인 아이디입니다.'
+        return true
     } catch (e) {
-        //같은 아이디 없으면 404(NotFound) 응답
-        if (e.response.data.name === 'NoDataError') {
-            return true
+        // 같은 아이디 있으면 409(Conflict) 응답
+        // "statusCode": 409,
+        // "message": "존재하는 아이디입니다.",
+        // "error": "Conflict"
+        if (e.response.data.error === 'Conflict') {
+            return '사용 중인 아이디입니다.'
         }
-        return '시스템 에러(관리자에 문의)'
+        return '시스템 오류(관리자에 문의)'
     }
 })
