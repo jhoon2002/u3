@@ -11,7 +11,7 @@ const isPw = ref(true)
     <q-card flat class="j-content-q-card">
         <vee-form v-slot="{ handleSubmit, resetForm }">
             <div class="text-h3 j-mb-15">
-                사람 등록
+                사용자
                 <q-btn flat round size="md" icon="bi-arrow-clockwise" color="primary" @click="resetForm()">
                     <q-tooltip
                         anchor="center right"

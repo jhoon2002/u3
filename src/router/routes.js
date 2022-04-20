@@ -57,13 +57,13 @@ const routes = [
                 children: [
                     {
                         path: '/admin/bi',
-                        name: '사람 등록',
+                        name: '사용자',
                         icon: 'las la-user',
-                        component: () => import('@/views/admin/UserForm.vue'),
+                        component: () => import('@/views/admin/UserList.vue'),
                     },
                     {
                         path: '/admin/sponsor',
-                        name: '지원기관 등록',
+                        name: '지원기관',
                         icon: 'las la-building',
                         component: () => import('@/views/admin/SponsorCreate.vue'),
                     },

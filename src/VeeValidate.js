@@ -91,3 +91,35 @@ defineRule('loginidDuplicated', async value => {
         return '시스템 오류(관리자에 문의)'
     }
 })
+defineRule('emailDuplicated', async value => {
+    try {
+        //같은 이메일 없으면 통과
+        await http.get('/api/users/email/' + value)
+        return true
+    } catch (e) {
+        // 같은 이메일 있으면 409(Conflict) 응답
+        // "statusCode": 409,
+        // "message": "존재하는 이메일입니다.",
+        // "error": "Conflict"
+        if (e.response.data.error === 'Conflict') {
+            return '사용 중인 이메일입니다.'
+        }
+        return '시스템 오류(관리자에 문의)'
+    }
+})
+defineRule('cellphoneDuplicated', async value => {
+    try {
+        //같은 번호 없으면 통과
+        await http.get('/api/users/cellphone/' + value)
+        return true
+    } catch (e) {
+        // 같은 휴대폰 번호 있으면 409(Conflict) 응답
+        // "statusCode": 409,
+        // "message": "존재하는 휴대폰 번호입니다.",
+        // "error": "Conflict"
+        if (e.response.data.error === 'Conflict') {
+            return '사용 중인 번호입니다.'
+        }
+        return '시스템 오류(관리자에 문의)'
+    }
+})

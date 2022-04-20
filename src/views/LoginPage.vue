@@ -113,7 +113,7 @@ export default {
                     class="flex justify-center j-mt-1 text-grey-7 animate__animated animate__flipInX"
                 >
                     <div class="text-cyan">사업</div>
-                    <div class="text-green-3">자료</div>
+                    <div class="text-green-3">정보</div>
                     <div class="text-cyan">관리</div>
                     <div class="text-orange">시스템</div>
                 </div>

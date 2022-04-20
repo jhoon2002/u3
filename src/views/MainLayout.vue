@@ -157,7 +157,7 @@ export default {
                         class="animate__animated animate__flipInX"
                     >
                         <span class="text-cyan">사업</span>
-                        <span class="text-green-3">자료</span>
+                        <span class="text-green-3">정보</span>
                         <span class="text-cyan">관리</span>
                         <span class="text-orange">시스템</span>
                     </div>
