@@ -170,6 +170,7 @@ ref 와 reactive 의 차이
 2. 둘다 모든 경우에 사용이 가능한데 단지, 내부에 coumputed 를 사용할 수 있는지 여부라는 의견이 있음
 const a = ref({ a: 'aa', b: computed ... })  => 불가
 const a = reactive({ a: 'aa', b: computed ... })  => 가능
+3. ref -> 모두 사용가능 / reactive -> Array, Object, Map, Set 이라는 의견이 있음
 
 toRefs
 toRefs는 Reactivity API로 감싸진 값들을 구조분해 할당 시, 반응형을 유지하면서 ref() 형태로 변환하게 해주는 함수
