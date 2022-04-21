@@ -14,10 +14,8 @@ const data = reactive({
 const { users } = toRefs(data)
 onMounted(async () => {
     try {
-        const { data: users } = await http.post('/api/users', {
-            name: 'aaa',
-            email: 'bbb',
-        })
+        const { data: users } = await http.get('/api/users')
+        console.log(users.length)
         data.users = users
         // rows = toRefs(data)
     } catch (e) {
@@ -26,6 +24,7 @@ onMounted(async () => {
 })
 </script>
 <template>
+    {{ users.length }}
     <div class="q-pa-md">
         <q-table title="사용자" :rows="users" row-key="name" />
     </div>
