@@ -10,10 +10,14 @@ import { onMounted, reactive, toRefs } from 'vue'
 const data = reactive({
     users: [],
 })
+//reactive 객체에서 한 요소를 추출시에는 toRefs api를 이용해야 반응성 유지
 const { users } = toRefs(data)
 onMounted(async () => {
     try {
-        const { data: users } = await http.get('/api/users')
+        const { data: users } = await http.post('/api/users', {
+            name: 'aaa',
+            email: 'bbb',
+        })
         data.users = users
         // rows = toRefs(data)
     } catch (e) {

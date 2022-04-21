@@ -123,7 +123,7 @@ export default {
                     v-slot="{ handleSubmit }"
                     :initial-values="{
                         아이디: 'jhoon',
-                        비밀번호: 'jhoon',
+                        비밀번호: 'aa1111',
                     }"
                     style="max-width: 15rem; margin: 0 auto 0 auto"
                 >
