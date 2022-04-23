@@ -3,9 +3,10 @@ import { ref } from 'vue'
 import GlobalNav from '@/components/global-nav/GlobalNav.vue'
 // import { useQuasar } from 'quasar'
 import http from '@/api/http.js'
+import MainMenu from '@/views/main/MainMenu.vue'
 
 export default {
-    components: { GlobalNav },
+    components: { GlobalNav, MainMenu },
     setup() {
         // const weather = ref([])
         // const cloudyIcon = computed({
@@ -62,18 +63,29 @@ export default {
 </script>
 <template>
     <q-layout view="lHh LpR lff" class="animate__animated animate__fadeIn animate__faster">
-        <q-header bordered style="backdrop-filter: blur(3px); background-color: #0000002a">
+        <q-header bordered style="backdrop-filter: blur(0px); background-color: #0000002a">
             {{ name }}
             <q-toolbar>
-                <q-toolbar-title
-                    class="q-pt-xs row justify-between"
-                    :class="$q.dark.mode ? 'text-white' : 'text-black'"
-                >
-                    <div class="animated fadeIn">
-                        <q-btn dense flat round icon="menu" class="j-mb-1" @click="toggleLeftDrawer" />
-                        <span class="text-h5 j-ml-5">{{ $route.name }}</span>
+                <q-toolbar-title class="row justify-between" :class="$q.dark.mode ? 'text-white' : 'text-black'">
+                    <div class="row">
+                        <div class="animated fadeIn row">
+                            <q-btn
+                                dense
+                                flat
+                                round
+                                icon="menu"
+                                style="height: 28px; margin-top: 9px"
+                                @click="toggleLeftDrawer"
+                            />
+                            <!--
+                            <div class="text-h5 j-ml-5" style="margin-top: 11px; width: 150px">
+                                {{ $route.name }}
+                            </div>
+                            -->
+                        </div>
+                        <main-menu class="q-ml-md" />
                     </div>
-                    <div class="flex">
+                    <div class="flex j-mt-2">
                         <div class="j-mr-3">
                             <q-btn flat dense label="하이웍스 로그인" @click="hlogin" />
                             <q-btn flat dense label="마이페이지" />

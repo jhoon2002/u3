@@ -11,7 +11,6 @@ export default {
     },
 }
 </script>
-<script setup></script>
 <template>
     <q-list>
         <template v-for="item in items">
