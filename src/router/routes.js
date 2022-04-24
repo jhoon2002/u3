@@ -59,7 +59,8 @@ const routes = [
                         path: '/admin/bi',
                         name: '사용자',
                         icon: 'las la-user',
-                        component: () => import('@/views/admin/UserList.vue'),
+                        component: () => import('@/views/user/UserList.vue'),
+                        sideComponent: () => import('@/views/user/UserSide.vue'),
                     },
                     {
                         path: '/admin/sponsor',
