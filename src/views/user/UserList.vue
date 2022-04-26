@@ -7,6 +7,7 @@
  */
 import http from '@/api/http.js'
 import { computed, onMounted, ref } from 'vue'
+import UserForm from '@/views/admin/UserForm.vue'
 
 const users = ref([])
 const pagination = ref({
@@ -128,59 +129,56 @@ const columns = [
         sortable: true,
     },
 ]
-
-const leftDrawerOpen = ref(false)
-const toggleLeftDrawer = () => {
-    leftDrawerOpen.value = !leftDrawerOpen.value
-}
+const register = ref(false)
 </script>
 <template>
-    <q-layout view="hHh lpR fFf">
-        <q-drawer show-if-above v-model="leftDrawerOpen" side="left" bordered>
-            <!-- drawer content -->
-        </q-drawer>
-
-        <q-page-container>
-            <div>
-                <q-table
-                    title="사용자"
-                    :rows="users"
-                    row-key="name"
-                    v-model:pagination="pagination"
-                    @request="onRequest"
-                    :loading="loading"
-                    :columns="columns"
-                    color="info"
-                    hide-pagination
-                >
-                    <template v-slot:bottom="{ pagination }">
-                        <div class="row justify-center q-my-md" style="width: 100%">
-                            <q-pagination
-                                :model-value="pagination.page"
-                                color="grey-8"
-                                boundary-numbers
-                                unelevated
-                                active-color="pink"
-                                :max="pagesNumber"
-                                :max-pages="10"
-                                size="md"
-                                @update:model-value="
-                                    e =>
-                                        onRequest({
-                                            pagination: {
-                                                sortBy: pagination.sortBy,
-                                                descending: pagination.descending,
-                                                page: e,
-                                                rowsPerPage: pagination.rowsPerPage,
-                                                rowsNumber: pagination.rowsNumber,
-                                            },
-                                        })
-                                "
-                            />
-                        </div>
-                    </template>
-                </q-table>
-            </div>
-        </q-page-container>
-    </q-layout>
+    <div>
+        <q-table
+            title="사용자"
+            :rows="users"
+            row-key="name"
+            v-model:pagination="pagination"
+            @request="onRequest"
+            :loading="loading"
+            :columns="columns"
+            color="info"
+            hide-pagination
+        >
+            <template v-slot:bottom="{ pagination }">
+                <div class="row justify-center q-my-md" style="width: 100%">
+                    <q-pagination
+                        :model-value="pagination.page"
+                        color="grey-8"
+                        boundary-numbers
+                        unelevated
+                        active-color="pink"
+                        :max="pagesNumber"
+                        :max-pages="10"
+                        size="md"
+                        @update:model-value="
+                            e =>
+                                onRequest({
+                                    pagination: {
+                                        sortBy: pagination.sortBy,
+                                        descending: pagination.descending,
+                                        page: e,
+                                        rowsPerPage: pagination.rowsPerPage,
+                                        rowsNumber: pagination.rowsNumber,
+                                    },
+                                })
+                        "
+                    />
+                </div>
+            </template>
+            <template v-slot:top>
+                <div class="q-my-xs row">
+                    <div class="text-h6">사용자</div>
+                    <q-btn flat label="추가" @click="register = true" />
+                </div>
+            </template>
+        </q-table>
+        <q-dialog v-model="register">
+            <user-form @close="register = false" />
+        </q-dialog>
+    </div>
 </template>

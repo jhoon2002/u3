@@ -62,7 +62,7 @@ const { value: belong, errorMessage: errorBelong } = useField('소속', { requir
  *
  */
 const onSubmit = handleSubmit(async values => {
-    values.juminRaw = props.jumin
+    values['주민등록번호'] = props.jumin
     preUser.value ? (values.userid = preUser.value.userid) : (values.userid = null)
     const opt = {
         position: 'top',
