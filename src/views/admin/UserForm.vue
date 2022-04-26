@@ -56,7 +56,6 @@ const { handleSubmit, resetForm } = useForm({
 })
 const { value: name, errorMessage: errorName } = useField('이름', { required: true, min: 2, max: 10 })
 const { value: loginid, errorMessage: errorLoginid } = useField('아이디', {
-    required: true,
     id: true,
     loginidDuplicated: true,
 })
@@ -107,14 +106,14 @@ const onSubmit = handleSubmit(async values => {
 <template>
     <q-card style="width: 600px">
         <form @submit="onSubmit">
-            <q-card-section class="row">
+            <q-card-section class="row items-center">
                 <div class="text-h5">사용자 등록</div>
                 <q-space />
                 <q-btn round flat icon="close" size="md" @click="$emit('close')" />
             </q-card-section>
             <q-card-section class="q-px-lg">
                 <div class="row q-gutter-lg">
-                    <j-input label="아이디" v-model="loginid" :error-message="errorLoginid" required-sign class="col" />
+                    <j-input label="아이디" v-model="loginid" :error-message="errorLoginid" class="col" />
                     <j-input
                         label="이름"
                         v-model="name"
@@ -140,7 +139,6 @@ const onSubmit = handleSubmit(async values => {
                         :type="isPwd ? 'password' : 'text'"
                         :error-message="errorPassword"
                         input-style="letter-spacing: 3px"
-                        required-sign
                         class="col"
                     >
                         <template v-slot:append>
@@ -157,7 +155,6 @@ const onSubmit = handleSubmit(async values => {
                         :type="isPwd2 ? 'password' : 'text'"
                         :error-message="errorPasswordConfirm"
                         input-style="letter-spacing: 3px"
-                        required-sign
                         class="col"
                     >
                         <template v-slot:append>

@@ -107,7 +107,6 @@ export default {
 
         <q-drawer :width="250" show-if-above v-model="leftDrawerOpen" side="left" bordered>
             <q-icon style="font-size: 7rem; position: absolute; left: -40px; top: 500px" color="grey-3" />
-            <!-- 사업관리시스템
             <div
                 v-ripple:grey-7
                 class="q-px-md q-pt-md q-pb-sm relative-position cursor-pointer"
@@ -135,12 +134,13 @@ export default {
                         style="font-family: LeferiPoint-BlackA, sans-serif; font-size: 1.7rem; animation-delay: 0.2s"
                         class="animate__animated animate__flipInX"
                     >
-                        <span class="text-cyan">사업관리</span>
+                        <span class="text-cyan">사업</span>
+                        <span class="text-green-3">정보</span>
                         <span class="text-orange">시스템</span>
                     </div>
                 </div>
             </div>
-            -->
+            <!--
             <div
                 v-ripple:grey-7
                 class="q-px-md q-pt-md q-pb-sm relative-position cursor-pointer"
@@ -175,6 +175,7 @@ export default {
                     </div>
                 </div>
             </div>
+            -->
             <global-nav :items="$router.options.routes.filter(item => item.path === '/')[0].children" />
             <!--            <component :is=""></component>-->
             <!--<router-view v-slot="{ route }">

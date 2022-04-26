@@ -92,10 +92,16 @@ export const juminToStr = juminNo => {
 }
 
 //생년월일 표시
-export const toBirthday = (juminNo, sex = false, connector = '-') => {
+export const toBirthday = (
+    juminNo,
+    sex = false,
+    juminConnector = '-',
+    sexPreConnector = ' (',
+    sexPostConnector = ')',
+) => {
     if (!juminNo) return
 
-    const f = juminNo.substr(6, 1)
+    const f = juminNo.substring(6, 7)
     let y = ''
     let s = ''
     switch (f) {
@@ -115,12 +121,12 @@ export const toBirthday = (juminNo, sex = false, connector = '-') => {
     s = f % 2 === 1 ? '남' : '여'
     return (
         y +
-        juminNo.substr(0, 2) +
-        connector +
-        juminNo.substr(2, 2) +
-        connector +
-        juminNo.substr(4, 2) +
-        (sex ? ', ' + s : '')
+        juminNo.substring(0, 2) +
+        juminConnector +
+        juminNo.substring(2, 4) +
+        juminConnector +
+        juminNo.substring(4, 6) +
+        (sex ? sexPreConnector + s + sexPostConnector : '')
     )
 }
 

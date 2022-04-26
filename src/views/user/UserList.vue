@@ -85,7 +85,15 @@ const columns = [
         label: '생년월일',
         align: 'left',
         field: row => row.birthday,
-        format: val => val.substr(0, 2) + '-' + val.substr(2, 2) + '-' + val.substr(4, 2),
+        format: val => `${val}`,
+        sortable: true,
+    },
+    {
+        name: 'sex',
+        label: '성별',
+        align: 'left',
+        field: row => row.sex,
+        format: val => `${val}`,
         sortable: true,
     },
     {

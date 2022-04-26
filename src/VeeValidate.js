@@ -69,6 +69,9 @@ defineRule('id', value => {
     return true
 })
 defineRule('password', value => {
+    if (!value) {
+        return true
+    }
     let pattern = /^(?=.*[a-zA-Z])(?=.*[0-9]).{6,20}$/
     if (!pattern.test(value)) {
         return '영문, 숫자 포함 6~20자'

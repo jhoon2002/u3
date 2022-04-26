@@ -114,7 +114,6 @@ export default {
                 >
                     <div class="text-cyan">사업</div>
                     <div class="text-green-3">정보</div>
-                    <div class="text-cyan">관리</div>
                     <div class="text-orange">시스템</div>
                 </div>
             </div>

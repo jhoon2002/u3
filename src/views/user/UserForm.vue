@@ -47,7 +47,7 @@ const { value: loginid, errorMessage: errorLoginid } = useField('아이디', {
     id: true,
     loginidDuplicated: true,
 })
-const { value: password, errorMessage: errorPassword } = useField('비밀번호', { password: true })
+const { value: password, errorMessage: errorPassword } = useField('비밀번호', { password: true, required: true })
 const { value: passwordConfirm, errorMessage: errorPasswordConfirm } = useField('비밀번호 확인', {
     confirmed: '@비밀번호',
 })
